@@ -29,7 +29,7 @@
 
 #define ISIPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
 
-#define KEY_GOOGLE_ANALYTICS @"UA-55224845-1"
+#define KEY_GOOGLE_ANALYTICS @"KEY"
 
 
 #define FONT_LIGHT @"NanumGothicOTFLight"//@"HYgsrB"//
