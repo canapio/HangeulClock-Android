@@ -1,0 +1,91 @@
+<resources>
+    <string name="app_name">Hansi</string>
+
+    <string name="big_am">오</string>
+    <string name="big_pm">후</string>
+    <string name="big_ampm_unit">전</string>
+    <string name="big_hour">시</string>
+    <string name="big_minute">분</string>
+    <string name="big_second">초</string>
+
+    <string name="zero">영</string>
+    <string name="one">일</string>
+    <string name="one_de">ㅇㅣㄹ</string>
+    <string name="two">이</string>
+    <string name="two_de">ㅇㅣ</string>
+    <string name="three">삼</string>
+    <string name="three_de">ㅅㅏㅁ</string>
+    <string name="four">사</string>
+    <string name="four_de">ㅅㅏ</string>
+    <string name="five">오</string>
+    <string name="five_de">ㅇㅗ</string>
+    <string name="six">육</string>
+    <string name="six_de">ㅇㅠㄱ</string>
+    <string name="six_special">유</string>
+    <string name="six_special_de">ㅇㅠ</string>
+    <string name="seven">칠</string>
+    <string name="seven_de">ㅊㅣㄹ</string>
+    <string name="eight">팔</string>
+    <string name="eight_de">ㅍㅏㄹ</string>
+    <string name="nine">구</string>
+    <string name="nine_de">ㄱㅜ</string>
+    <string name="ten">십</string>
+    <string name="ten_de">ㅅㅣㅂ</string>
+    <string name="ten_special">시</string>
+    <string name="ten_special_de">ㅅㅣ</string>
+
+    <string name="first">한</string>
+    <string name="second">두</string>
+    <string name="third">세</string>
+    <string name="fourth">네</string>
+    <string name="fifth">다섯</string>
+    <string name="sixth">여섯</string>
+    <string name="seventh">일곱</string>
+    <string name="eighth">여덟</string>
+    <string name="ninth">아홉</string>
+    <string name="tenth">열</string>
+    <string name="eleventh">열한</string>
+    <string name="twelfth">열두</string>
+    <string name="thirteenth">열세</string>
+    <string name="fourteenth">열네</string>
+    <string name="fifteenth">열다섯</string>
+    <string name="sixteenth">열여섯</string>
+    <string name="seventeenth">열일곱</string>
+    <string name="eighteenth">열여덟</string>
+    <string name="nineteenth">열아홉</string>
+    <string name="twentieth">스무</string>
+    <string name="twenty_first">스물한</string>
+    <string name="twenty_second">스물두</string>
+    <string name="twenty_third">스물세</string>
+
+    <string name="day_1">요</string>
+    <string name="day_2">일</string>
+    <string name="day_de">ㅇㅛㅇㅣㄹ</string>
+
+    <string name="mon">월</string>
+    <string name="mon_de">ㅇㅜㅓㄹ</string>
+    <string name="tue">화</string>
+    <string name="tue_de">ㅎㅗㅏ</string>
+    <string name="wed">수</string>
+    <string name="wed_de">ㅅㅜ</string>
+    <string name="thu">목</string>
+    <string name="thu_de">ㅁㅗㄱ</string>
+    <string name="fri">금</string>
+    <string name="fri_de">ㄱㅡㅁ</string>
+    <string name="sat">토</string>
+    <string name="sat_de">ㅌㅗ</string>
+    <string name="sun">일</string>
+    <string name="sun_de">ㅇㅣㄹ</string>
+
+    <string name="year">년</string>
+    <string name="year_de">ㄴㅕㄴ</string>
+
+    <string name="unit_ten">십</string>
+    <string name="unit_ten_de">ㅅㅣㅂ</string>
+    <string name="unit_hundred">백</string>
+    <string name="unit_hundred_de">ㅂㅐㄱ</string>
+    <string name="unit_thousand">천</string>
+    <string name="unit_thousand_de">ㅊㅓㄴ</string>
+
+
+</resources>
