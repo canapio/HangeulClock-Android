@@ -83,6 +83,8 @@ public class ClockActivity extends Activity implements
         mDetector = new GestureDetectorCompat(this,this);
         metrics = new DisplayMetrics();
 
+        kt = new KoreanTranslator();
+        
         calcBounds(currOrientation);
 
         final Typeface nanumGothic = Typeface.createFromAsset(getAssets(),"fonts/NanumGothic.ttf");
@@ -146,7 +148,7 @@ public class ClockActivity extends Activity implements
         tvSmallDayOfWeek.setTypeface(nanumGothic);
         tvSmallAMPM.setTypeface(nanumGothic);
 
-        kt = new KoreanTranslator();
+
 
         Clock clock = new Clock(this);
         clock.setClockTickListener(new Clock.OnClockTickListener() {
