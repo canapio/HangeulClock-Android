@@ -26,6 +26,9 @@ import android.widget.ViewSwitcher;
 
 import org.w3c.dom.Text;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 public class ClockActivity extends Activity implements
         GestureDetector.OnGestureListener {
     private static final String TAG = ClockActivity.class.getSimpleName();
@@ -83,8 +86,6 @@ public class ClockActivity extends Activity implements
         mDetector = new GestureDetectorCompat(this,this);
         metrics = new DisplayMetrics();
 
-        kt = new KoreanTranslator();
-        
         calcBounds(currOrientation);
 
         final Typeface nanumGothic = Typeface.createFromAsset(getAssets(),"fonts/NanumGothic.ttf");
@@ -148,14 +149,15 @@ public class ClockActivity extends Activity implements
         tvSmallDayOfWeek.setTypeface(nanumGothic);
         tvSmallAMPM.setTypeface(nanumGothic);
 
-
+        kt = new KoreanTranslator();
 
         Clock clock = new Clock(this);
         clock.setClockTickListener(new Clock.OnClockTickListener() {
 
             @Override
             public void OnSecondTick(Time currentTime) {
-                currTimeStr = DateFormat.format("yy:M:d:EEE:h:m:s:aa", currentTime.toMillis(true)).toString().split(":");
+                SimpleDateFormat mSimpleDataFormat = new SimpleDateFormat("yy:M:d:EEE:h:m:s:aa", Locale.ENGLISH);
+                currTimeStr = mSimpleDataFormat.format(currentTime.toMillis(true)).toString().split(":");
                 String tmp = "";
 
                 for (int i = 0 ; i < currTimeStr.length; i++) {
@@ -213,8 +215,8 @@ public class ClockActivity extends Activity implements
                     }
                 }
 
-                //Log.d("Current Time in Eng: ", DateFormat.format("yy:M:dd:EEE:h:mm:ss:aa", currentTime.toMillis(true)).toString());
-                //Log.d("Current time: ",currYr+"년 "+currMon+"월 "+currDay+"일 "+currDayOfWeek+"요일 오"+currAMPM+" "+currHour+"시 "+currMin+"분 "+currSec+"초");
+                Log.d("Current Time in Eng: ", DateFormat.format("yy:M:dd:EEE:h:mm:ss:aa", currentTime.toMillis(true)).toString());
+                Log.d("Current time: ",currYr+"년 "+currMon+"월 "+currDay+"일 "+currDayOfWeek+"요일 오"+currAMPM+" "+currHour+"시 "+currMin+"분 "+currSec+"초");
 
                 tvTop.setText(addSpace("  " + currYr + "년 " + currMon + "월 " + currDay + "일 " + currDayOfWeek + "요일  "));
                 tvSmallYr.setText(kt.linearHangul(currYr+"년"));
