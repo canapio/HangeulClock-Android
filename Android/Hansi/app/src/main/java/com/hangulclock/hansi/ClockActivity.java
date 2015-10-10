@@ -215,8 +215,8 @@ public class ClockActivity extends Activity implements
                     }
                 }
 
-                Log.d("Current Time in Eng: ", DateFormat.format("yy:M:dd:EEE:h:mm:ss:aa", currentTime.toMillis(true)).toString());
-                Log.d("Current time: ",currYr+"년 "+currMon+"월 "+currDay+"일 "+currDayOfWeek+"요일 오"+currAMPM+" "+currHour+"시 "+currMin+"분 "+currSec+"초");
+                //Log.d("Current Time in Eng: ", mSimpleDataFormat.format(currentTime.toMillis(true)).toString());
+                //Log.d("Current time: ",currYr+"년 "+currMon+"월 "+currDay+"일 "+currDayOfWeek+"요일 오"+currAMPM+" "+currHour+"시 "+currMin+"분 "+currSec+"초");
 
                 tvTop.setText(addSpace("  " + currYr + "년 " + currMon + "월 " + currDay + "일 " + currDayOfWeek + "요일  "));
                 tvSmallYr.setText(kt.linearHangul(currYr+"년"));
