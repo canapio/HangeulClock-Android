@@ -4,7 +4,7 @@
     android:layout_height="match_parent" android:background="@drawable/background"
     tools:context=".ClockActivity">
 
-    <TextView android:id="@+id/tv_top"
+    <com.hangulclock.hansi.AutoResizeTextView android:id="@+id/tv_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:keepScreenOn="true"
@@ -16,6 +16,7 @@
         android:layout_marginTop="10sp"
         android:layout_marginRight="10sp"
         android:layout_marginEnd="10sp"
+        android:maxLines="1"
         android:text="이 천 십 오 년    시 월    구 일    금 요 일"/>
 
     <TextView android:id="@+id/tv_big_hour"
@@ -39,7 +40,7 @@
         android:layout_alignBottom="@+id/tv_big_hour"
         android:layout_toLeftOf="@+id/tv_big_hour"
         android:layout_toStartOf="@+id/tv_big_hour"
-        android:text="@string/twelfth" />
+        android:text="열두" />
 
     <TextView android:id="@+id/tv_ampm_unit"
         android:layout_width="wrap_content"
