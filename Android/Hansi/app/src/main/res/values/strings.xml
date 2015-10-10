@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">Hansi</string>
+    <string name="app_name">한글시계</string>
 
-    <string name="big_am">오</string>
+    <string name="big_am">전</string>
     <string name="big_pm">후</string>
-    <string name="big_ampm_unit">전</string>
+    <string name="big_ampm_unit">오</string>
     <string name="big_hour">시</string>
     <string name="big_minute">분</string>
     <string name="big_second">초</string>

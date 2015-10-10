@@ -23,7 +23,6 @@ public class KoreanTranslator {
 		}
 
 		else if (type == ConvertType.tcType_minute || type == ConvertType.tcType_second || type == ConvertType.tcType_month) {
-			// NSMutableString hangulStr = [[NSMutableString alloc] initWithString:@""];
 			String hangulStr = "";
 			int unit = 0;
 			int tmp = Integer.parseInt(time);
@@ -70,7 +69,7 @@ public class KoreanTranslator {
 			char comVal = (char) (str.charAt(i) - 0xAC00);
 
 			// 한글이 아닐경우
-			// System.out.print(comVal+" ");
+			//System.out.println(comVal+" ");
 			if (comVal >= 0 && comVal <= 11172){
 				// 한글일경우 
 				
@@ -83,15 +82,21 @@ public class KoreanTranslator {
 				char jong = (char) ((uniVal % 28) + 0x11a7);
 
 				if(cho != 4519){
-					// System.out.print(cho+" ");
+					//System.out.println(cho+" ");
 					returnStr += cho + " ";
 				}
 				if(jung != 4519){
-					// System.out.print(jung+" ");
-					returnStr += jung + " ";
+					//System.out.println((int)jung+" ");
+					if (jung == 4463) {
+						returnStr += "ㅜㅓ" + " ";
+					} else if (jung == 4458) {
+						returnStr += "ㅗㅏ" + " ";
+					} else {
+						returnStr += jung + " ";
+					}
 				}
 				if(jong != 4519){
-					// System.out.print(jong+" ");
+					//System.out.println(jong+" ");
 					returnStr += jong + " ";
 				}
 		
@@ -120,7 +125,7 @@ public class KoreanTranslator {
 	}
 	
 	public String timeAMPM(String ampm) {
-		if (ampm.equals("am")) return "전";
+		if (ampm.equals("AM")) return "전";
 		else return "후";
 	}
 
