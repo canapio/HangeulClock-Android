@@ -88,6 +88,9 @@
     <string name="unit_hundred_de">ㅂㅐㄱ</string>
     <string name="unit_thousand">천</string>
     <string name="unit_thousand_de">ㅊㅓㄴ</string>
+    <string name="appwidget_text">한글시계</string>
+    <string name="configure">Configure</string>
+    <string name="add_widget">Add widget</string>
 
 
 </resources>
