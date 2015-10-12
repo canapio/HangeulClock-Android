@@ -4,14 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    android:background="@drawable/background"
     tools:context=".ClockActivity"
     android:keepScreenOn="true"
-    android:foreground="@drawable/shape_window_dim">
+    android:foreground="@drawable/shape_window_dim"
+    android:background="@drawable/launch_image_landscape">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <!--ImageView
+            android:background="@drawable/launch_image_landscape"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:scaleType="centerCrop" /-->
 
         <TextView android:id="@+id/tv_top_h"
             android:layout_width="match_parent"

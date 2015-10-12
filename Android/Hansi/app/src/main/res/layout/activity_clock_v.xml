@@ -4,14 +4,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/background"
     tools:context=".ClockActivity"
     android:keepScreenOn="true"
-    android:foreground="@drawable/shape_window_dim">
+    android:foreground="@drawable/shape_window_dim"
+    android:background="@drawable/launch_image_portrait">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <!--ImageView
+            android:layout_width="fill_parent"
+            android:src="@drawable/launch_image_portrait"
+            android:layout_height="fill_parent"
+            android:scaleType="centerCrop" /-->
+
         <com.hangulclock.hansi.AutoResizeTextView android:id="@+id/tv_top_v"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
