@@ -3,23 +3,16 @@ package com.hangulclock.hansi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.ColorFilter;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.MainThread;
 import android.support.v4.view.GestureDetectorCompat;
-import android.text.format.DateFormat;
 import android.text.format.Time;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -32,19 +25,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
-import android.widget.TextSwitcher;
 import android.widget.TextView;
-import android.widget.ViewSwitcher;
-
-import org.w3c.dom.Text;
-
+import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
@@ -53,6 +39,8 @@ public class ClockActivity extends Activity implements
     private static final String TAG = ClockActivity.class.getSimpleName();
 
     private static final String APP_LINK = "market://details?id=com.hangulclock.hansi";
+    private static final String APP_URL_DEFAULT = "http://play.google.com/store/apps/details?id=com.hangulclock.hansi";
+    private static final String APP_URL_KOR = "http://play.google.com/store/apps/details?id=com.hangulclock.hansi&hl=ko";
     KoreanTranslator kt;
 
     String[] currTimeStr;
@@ -82,7 +70,6 @@ public class ClockActivity extends Activity implements
 
     private int lBound;
     private int uBound;
-    private double brightness;
 
     FrameLayout activityH;
     FrameLayout activityV;
@@ -96,7 +83,8 @@ public class ClockActivity extends Activity implements
 
     private DialogListener mDialogListener;
     private PopupWindow infoPopup;
-    private Button popupConfirmButton;
+
+    private Locale currLocale;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,11 +106,10 @@ public class ClockActivity extends Activity implements
                 currOrientation = 1;
         }
 
-
-        mDetector = new GestureDetectorCompat(this,this);
+        mDetector = new GestureDetectorCompat(this, this);
         metrics = new DisplayMetrics();
 
-        calcBounds(currOrientation);
+        calcBounds();
 
         activityH = (FrameLayout) findViewById(R.id.mainlayout_h);
         activityV = (FrameLayout) findViewById(R.id.mainlayout_v);
@@ -145,10 +132,12 @@ public class ClockActivity extends Activity implements
             }
         };
 
-        final Typeface nanumGothic = Typeface.createFromAsset(getAssets(),"fonts/NanumGothic.ttf");
-        final Typeface nanumGothicBold = Typeface.createFromAsset(getAssets(),"fonts/NanumGothicBold.ttf");
-        final Typeface nanumGothicExtraBold = Typeface.createFromAsset(getAssets(),"fonts/NanumGothicExtraBold.ttf");
-        final Typeface nanumGothicLight = Typeface.createFromAsset(getAssets(),"fonts/NanumGothicLight.ttf");
+        currLocale = getResources().getConfiguration().locale;
+
+        final Typeface nanumGothic = Typeface.createFromAsset(getAssets(), "fonts/NanumGothic.ttf");
+        final Typeface nanumGothicBold = Typeface.createFromAsset(getAssets(), "fonts/NanumGothicBold.ttf");
+        final Typeface nanumGothicExtraBold = Typeface.createFromAsset(getAssets(), "fonts/NanumGothicExtraBold.ttf");
+        final Typeface nanumGothicLight = Typeface.createFromAsset(getAssets(), "fonts/NanumGothicLight.ttf");
 
         // 최상단 년월일
         if (currOrientation == 0) {
@@ -214,23 +203,27 @@ public class ClockActivity extends Activity implements
             @Override
             public void OnSecondTick(Time currentTime) {
                 SimpleDateFormat mSimpleDataFormat = new SimpleDateFormat("yy:M:d:EEE:h:m:s:aa", Locale.ENGLISH);
-                currTimeStr = mSimpleDataFormat.format(currentTime.toMillis(true)).toString().split(":");
-                String tmp = "";
+                currTimeStr = mSimpleDataFormat.format(currentTime.toMillis(true)).split(":");
+                String tmp;
 
-                for (int i = 0 ; i < currTimeStr.length; i++) {
-                    switch(i) {
+                for (int i = 0; i < currTimeStr.length; i++) {
+                    switch (i) {
                         case 0:
-                            if (currYr.equals(tmp =  "이천"+ kt.convert(currTimeStr[i],ConvertType.tcType_minute))) {
+                            if (currYr.equals(tmp = "이천" + kt.convert(currTimeStr[i], ConvertType.tcType_minute))) {
                                 isYrChanged = false;
                                 break;
                             }
                             currYr = tmp;
                             isYrChanged = true;
                             break;
-                        case 1: currMon = kt.convert(currTimeStr[i],ConvertType.tcType_month); break;
-                        case 2: currDay =  kt.convert(currTimeStr[i],ConvertType.tcType_minute); break;
+                        case 1:
+                            currMon = kt.convert(currTimeStr[i], ConvertType.tcType_month);
+                            break;
+                        case 2:
+                            currDay = kt.convert(currTimeStr[i], ConvertType.tcType_minute);
+                            break;
                         case 3:
-                            if (currDayOfWeek.equals(tmp =  kt.dayOfWeekHanhulWithIndex(currTimeStr[i]))) {
+                            if (currDayOfWeek.equals(tmp = kt.dayOfWeekHanhulWithIndex(currTimeStr[i]))) {
                                 isdayOfWeekChanged = false;
                                 break;
                             }
@@ -238,7 +231,7 @@ public class ClockActivity extends Activity implements
                             isdayOfWeekChanged = true;
                             break;
                         case 4:
-                            if (currHour.equals(tmp =  kt.convert(currTimeStr[i], ConvertType.tcType_hour))) {
+                            if (currHour.equals(tmp = kt.convert(currTimeStr[i], ConvertType.tcType_hour))) {
                                 isHourChanged = false;
                                 break;
                             }
@@ -246,7 +239,7 @@ public class ClockActivity extends Activity implements
                             isHourChanged = true;
                             break;
                         case 5:
-                            if (currMin.equals(tmp =  kt.convert(currTimeStr[i], ConvertType.tcType_minute))) {
+                            if (currMin.equals(tmp = kt.convert(currTimeStr[i], ConvertType.tcType_minute))) {
                                 isMinChanged = false;
                                 break;
                             }
@@ -254,7 +247,7 @@ public class ClockActivity extends Activity implements
                             isMinChanged = true;
                             break;
                         case 6:
-                            if (currSec.equals(tmp =  kt.convert(currTimeStr[i], ConvertType.tcType_second))) {
+                            if (currSec.equals(tmp = kt.convert(currTimeStr[i], ConvertType.tcType_second))) {
                                 isSecChanged = false;
                                 break;
                             }
@@ -276,11 +269,11 @@ public class ClockActivity extends Activity implements
                 //Log.d("Current time: ",currYr+"년 "+currMon+"월 "+currDay+"일 "+currDayOfWeek+"요일 오"+currAMPM+" "+currHour+"시 "+currMin+"분 "+currSec+"초");
 
                 tvTop.setText(addSpace("  " + currYr + "년 " + currMon + "월 " + currDay + "일 " + currDayOfWeek + "요일  "));
-                tvSmallYr.setText(kt.linearHangul(currYr+"년"));
+                tvSmallYr.setText(kt.linearHangul(currYr + "년"));
                 if (isYrChanged) {
                     tvSmallYr.startAnimation(AnimationUtils.loadAnimation(ClockActivity.this, R.anim.fade_in_and_slide_down));
                 }
-                tvSmallDate.setText(kt.linearHangul(currMon + "월"+currDay + "일"));
+                tvSmallDate.setText(kt.linearHangul(currMon + "월" + currDay + "일"));
                 tvSmallDayOfWeek.setText(kt.linearHangul(currDayOfWeek + "요일"));
                 if (isdayOfWeekChanged) {
                     tvTop.startAnimation(AnimationUtils.loadAnimation(ClockActivity.this, R.anim.fade_in_and_slide_down));
@@ -288,15 +281,17 @@ public class ClockActivity extends Activity implements
                     tvSmallDayOfWeek.startAnimation(AnimationUtils.loadAnimation(ClockActivity.this, R.anim.fade_in_and_slide_down));
                 }
                 tvAMPM.setText(currAMPM);
-                tvSmallAMPM.setText(kt.linearHangul("오"+currAMPM));
+                tvSmallAMPM.setText(kt.linearHangul("오" + currAMPM));
                 if (isAMPMChanged) {
                     tvAMPM.startAnimation(AnimationUtils.loadAnimation(ClockActivity.this, R.anim.fade_in_and_slide_down));
                     tvSmallAMPM.startAnimation(AnimationUtils.loadAnimation(ClockActivity.this, R.anim.fade_in_and_slide_down));
                 }
                 tvBigTime.setText(currHour);
-                if (isHourChanged) tvBigTime.startAnimation(AnimationUtils.loadAnimation(ClockActivity.this, R.anim.fade_in_and_slide_down));
+                if (isHourChanged)
+                    tvBigTime.startAnimation(AnimationUtils.loadAnimation(ClockActivity.this, R.anim.fade_in_and_slide_down));
                 tvBigMin1.setText(currMin);
-                if (isMinChanged) tvBigMin1.startAnimation(AnimationUtils.loadAnimation(ClockActivity.this, R.anim.fade_in_and_slide_down));
+                if (isMinChanged)
+                    tvBigMin1.startAnimation(AnimationUtils.loadAnimation(ClockActivity.this, R.anim.fade_in_and_slide_down));
                 tvBigSec1.setText(currSec);
                 tvBigSec1.startAnimation(AnimationUtils.loadAnimation(ClockActivity.this, R.anim.fade_in_and_slide_down));
             }
@@ -369,11 +364,6 @@ public class ClockActivity extends Activity implements
             mDialogListener.onDialogOpen();
             mBlurred = true;
         }
-//        } else {
-//            mDialogListener.onDialogClose();
-//            mBlurred = false;
-//        }
-
 
         // TODO: add 설정 menu
         Dialog d = new AlertDialog.Builder(ClockActivity.this, AlertDialog.THEME_DEVICE_DEFAULT_DARK)
@@ -389,7 +379,27 @@ public class ClockActivity extends Activity implements
                         if (position == 0) {
                             Intent intent = new Intent(Intent.ACTION_VIEW);
                             intent.setData(Uri.parse(APP_LINK));
-                            startActivity(intent);
+                            try {
+                                startActivity(intent);
+                            } catch (ActivityNotFoundException e) {
+                                e.printStackTrace();
+                                Toast.makeText(getApplicationContext(), "플레이 스토어가 없네요 ㅠ.ㅠ 브라우저로 엽니다.",Toast.LENGTH_SHORT).show();
+
+                                Intent i = new Intent(Intent.ACTION_VIEW);
+
+                                if (currLocale.getCountry().equals("KR"))
+                                    i.setData(Uri.parse(APP_URL_KOR));
+                                else
+                                    i.setData(Uri.parse(APP_URL_DEFAULT));
+
+                                try {
+                                    startActivity(i);
+                                } catch(Exception er) {
+                                    er.printStackTrace();
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                         } else if (position == 1) {
                             int versionCode = BuildConfig.VERSION_CODE;
                             String versionName = BuildConfig.VERSION_NAME;
@@ -435,8 +445,8 @@ public class ClockActivity extends Activity implements
         return metrics.heightPixels;
     }
 
-    public int getMargin(){
-        final double heightPortraitPerc =  80f / 100f;
+    public int getMargin() {
+        final double heightPortraitPerc = 80f / 100f;
         final double heightLandscapePerc = 80f / 100f;
 
         double percent = (getScreenOrientation(this) == ActivityInfo.SCREEN_ORIENTATION_PORTRAIT ||
@@ -445,7 +455,7 @@ public class ClockActivity extends Activity implements
         return (int) ((getHeight() - percent * getHeight()) / 2);
     }
 
-    public void calcBounds(int o) {
+    public void calcBounds() {
         metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         lBound = getMargin();
@@ -456,10 +466,9 @@ public class ClockActivity extends Activity implements
         float ratio = (y - lBound) / (uBound - lBound);
         float value = 255.0f - ratio * 255.0f;
 
-        if (value < 20){
+        if (value < 20) {
             value = 20;
-        }
-        else if (value > 255){
+        } else if (value > 255) {
             value = 255;
         }
 
@@ -467,7 +476,6 @@ public class ClockActivity extends Activity implements
         lp.screenBrightness = value / 255.0f;
 
         getWindow().setAttributes(lp);
-        brightness = value;
     }
 
     private void openInfoPopup() {
@@ -480,7 +488,7 @@ public class ClockActivity extends Activity implements
             infoPopup = new PopupWindow(layout, layout.getLayoutParams().WRAP_CONTENT, layout.getLayoutParams().WRAP_CONTENT, true);
             infoPopup.showAtLocation(layout, Gravity.CENTER, 0, 0);
 
-            popupConfirmButton = (Button) layout.findViewById(R.id.btn_close_popup);
+            final Button popupConfirmButton = (Button) layout.findViewById(R.id.btn_close_popup);
             popupConfirmButton.setOnClickListener(confirmButtonOnClickListener);
 
         } catch (Exception e) {

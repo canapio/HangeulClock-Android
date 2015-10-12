@@ -13,12 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!--ImageView
-            android:layout_width="fill_parent"
-            android:src="@drawable/launch_image_portrait"
-            android:layout_height="fill_parent"
-            android:scaleType="centerCrop" /-->
-
         <com.hangulclock.hansi.AutoResizeTextView android:id="@+id/tv_top_v"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
