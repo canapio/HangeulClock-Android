@@ -1,93 +1,14 @@
 <resources>
     <string name="app_name">한글시계</string>
 
-    <string name="big_am">전</string>
-    <string name="big_pm">후</string>
     <string name="big_ampm_unit">오</string>
     <string name="big_hour">시</string>
     <string name="big_minute">분</string>
     <string name="big_second">초</string>
 
     <string name="zero">영</string>
-    <string name="one">일</string>
-    <string name="one_de">ㅇㅣㄹ</string>
-    <string name="two">이</string>
-    <string name="two_de">ㅇㅣ</string>
-    <string name="three">삼</string>
-    <string name="three_de">ㅅㅏㅁ</string>
-    <string name="four">사</string>
-    <string name="four_de">ㅅㅏ</string>
-    <string name="five">오</string>
-    <string name="five_de">ㅇㅗ</string>
-    <string name="six">육</string>
-    <string name="six_de">ㅇㅠㄱ</string>
-    <string name="six_special">유</string>
-    <string name="six_special_de">ㅇㅠ</string>
-    <string name="seven">칠</string>
-    <string name="seven_de">ㅊㅣㄹ</string>
-    <string name="eight">팔</string>
-    <string name="eight_de">ㅍㅏㄹ</string>
-    <string name="nine">구</string>
-    <string name="nine_de">ㄱㅜ</string>
-    <string name="ten">십</string>
-    <string name="ten_de">ㅅㅣㅂ</string>
-    <string name="ten_special">시</string>
-    <string name="ten_special_de">ㅅㅣ</string>
-
-    <string-array name="gisoo">
-        <item name="first">한</item>
-        <item name="second">두</item>
-        <item name="third">세</item>
-        <item name="fourth">네</item>
-        <item name="fifth">다섯</item>
-        <item name="sixth">여섯</item>
-        <item name="seventh">일곱</item>
-        <item name="eighth">여덟</item>
-        <item name="ninth">아홉</item>
-        <item name="tenth">열</item>
-        <item name="eleventh">열한</item>
-        <item name="twelfth">열두</item>
-        <item name="thirteenth">열세</item>
-        <item name="fourteenth">열네</item>
-        <item name="fifteenth">열다섯</item>
-        <item name="sixteenth">열여섯</item>
-        <item name="seventeenth">열일곱</item>
-        <item name="eighteenth">열여덟</item>
-        <item name="nineteenth">열아홉</item>
-        <item name="twentieth">스무</item>
-        <item name="twenty_first">스물한</item>
-        <item name="twenty_second">스물두</item>
-        <item name="twenty_third">스물세</item>
-    </string-array>
 
     <string name="day_1">요</string>
     <string name="day_2">일</string>
-    <string name="day_de">ㅇㅛㅇㅣㄹ</string>
-
-    <string name="mon">월</string>
-    <string name="mon_de">ㅇㅜㅓㄹ</string>
-    <string name="tue">화</string>
-    <string name="tue_de">ㅎㅗㅏ</string>
-    <string name="wed">수</string>
-    <string name="wed_de">ㅅㅜ</string>
-    <string name="thu">목</string>
-    <string name="thu_de">ㅁㅗㄱ</string>
-    <string name="fri">금</string>
-    <string name="fri_de">ㄱㅡㅁ</string>
-    <string name="sat">토</string>
-    <string name="sat_de">ㅌㅗ</string>
-    <string name="sun">일</string>
-    <string name="sun_de">ㅇㅣㄹ</string>
-
-    <string name="year">년</string>
-    <string name="year_de">ㄴㅕㄴ</string>
-
-    <string name="unit_ten">십</string>
-    <string name="unit_ten_de">ㅅㅣㅂ</string>
-    <string name="unit_hundred">백</string>
-    <string name="unit_hundred_de">ㅂㅐㄱ</string>
-    <string name="unit_thousand">천</string>
-    <string name="unit_thousand_de">ㅊㅓㄴ</string>
-
-
+    <string name="popup_info">한글시계\n\n제작자: 곽도영(iOS), 오세훈(Android)\n\n문의사항은 "건의하기"를 이용해주세요.</string>
 </resources>

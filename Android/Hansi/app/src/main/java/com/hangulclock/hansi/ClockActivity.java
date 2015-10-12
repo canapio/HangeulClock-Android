@@ -1,9 +1,21 @@
 package com.hangulclock.hansi;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.ColorFilter;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.MainThread;
 import android.support.v4.view.GestureDetectorCompat;
@@ -12,13 +24,20 @@ import android.text.format.Time;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.GestureDetector;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
@@ -32,6 +51,8 @@ import java.util.Locale;
 public class ClockActivity extends Activity implements
         GestureDetector.OnGestureListener {
     private static final String TAG = ClockActivity.class.getSimpleName();
+
+    private static final String APP_LINK = "market://details?id=com.hangulclock.hansi";
     KoreanTranslator kt;
 
     String[] currTimeStr;
@@ -63,6 +84,20 @@ public class ClockActivity extends Activity implements
     private int uBound;
     private double brightness;
 
+    FrameLayout activityH;
+    FrameLayout activityV;
+    boolean mBlurred = false;
+
+    // Option menu listener
+    private interface DialogListener {
+        void onDialogOpen();
+        void onDialogClose();
+    }
+
+    private DialogListener mDialogListener;
+    private PopupWindow infoPopup;
+    private Button popupConfirmButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,10 +118,32 @@ public class ClockActivity extends Activity implements
                 currOrientation = 1;
         }
 
+
         mDetector = new GestureDetectorCompat(this,this);
         metrics = new DisplayMetrics();
 
         calcBounds(currOrientation);
+
+        activityH = (FrameLayout) findViewById(R.id.mainlayout_h);
+        activityV = (FrameLayout) findViewById(R.id.mainlayout_v);
+
+        if (currOrientation == 0) activityV.getForeground().setAlpha(0);
+        else activityH.getForeground().setAlpha(0);
+
+        // Listener for dialog option menu
+        mDialogListener = new DialogListener() {
+            @Override
+            public void onDialogOpen() {
+                if (currOrientation == 0) activityV.getForeground().setAlpha(220);
+                else activityH.getForeground().setAlpha(220);
+            }
+
+            @Override
+            public void onDialogClose() {
+                if (currOrientation == 0) activityV.getForeground().setAlpha(0);
+                else activityH.getForeground().setAlpha(0);
+            }
+        };
 
         final Typeface nanumGothic = Typeface.createFromAsset(getAssets(),"fonts/NanumGothic.ttf");
         final Typeface nanumGothicBold = Typeface.createFromAsset(getAssets(),"fonts/NanumGothicBold.ttf");
@@ -275,7 +332,7 @@ public class ClockActivity extends Activity implements
     public boolean onTouchEvent(MotionEvent event) {
         this.mDetector.onTouchEvent(event);
 
-        updateBrightness(event.getY());
+
 
         // Be sure to call the superclass implementation
         return super.onTouchEvent(event);
@@ -300,17 +357,73 @@ public class ClockActivity extends Activity implements
     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
                             float distanceY) {
         //Log.d(TAG, "onScroll: " + e1.toString()+e2.toString());
-        if (distanceY > 0) {
-            Log.d(TAG, "going up!!");
-        } else if (e1.getY() - e2.getY() < 0) {
-
-        }
+        updateBrightness(e2.getY());
         return true;
     }
 
     @Override
     public void onLongPress(MotionEvent e) {
+        Log.d(TAG, "LONG PRESSED");
 
+        if(!mBlurred) {
+            mDialogListener.onDialogOpen();
+            mBlurred = true;
+        }
+//        } else {
+//            mDialogListener.onDialogClose();
+//            mBlurred = false;
+//        }
+
+
+        // TODO: add 설정 menu
+        Dialog d = new AlertDialog.Builder(ClockActivity.this, AlertDialog.THEME_DEVICE_DEFAULT_DARK)
+                .setItems(new String[]{"평가하기", "건의하기", "앱 정보", "취소"}, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dlg, int position) {
+//                        if (position == 0) {
+//                            mDialogListener.onDialogClose();
+//                            mBlurred = false;
+//                        }
+
+                        // Open the link to the app
+                        if (position == 0) {
+                            Intent intent = new Intent(Intent.ACTION_VIEW);
+                            intent.setData(Uri.parse(APP_LINK));
+                            startActivity(intent);
+                        } else if (position == 1) {
+                            int versionCode = BuildConfig.VERSION_CODE;
+                            String versionName = BuildConfig.VERSION_NAME;
+
+                            final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
+
+                            emailIntent.setType("plain/text");
+                            emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{"wecredible@gmail.com"});
+                            emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "한글시계 건의사항");
+                            emailIntent.putExtra(android.content.Intent.EXTRA_TEXT,
+                                    "App Name: 한글시계\n" +
+                                            "Version: " + versionName + "\n" +
+                                            "Version Code: " + versionCode + "\n ========================================================== \n\n");
+
+
+                            /* Send it off to the Activity-Chooser */
+                            startActivity(Intent.createChooser(emailIntent, "건의하기"));
+                        } else if (position == 2) {
+                            openInfoPopup();
+                        }
+                        else {
+                            mDialogListener.onDialogClose();
+                            mBlurred = false;
+                        }
+                    }
+                })
+                .create();
+        d.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                mDialogListener.onDialogClose();
+            }
+        });
+        d.show();
     }
 
     @Override
@@ -356,4 +469,28 @@ public class ClockActivity extends Activity implements
         getWindow().setAttributes(lp);
         brightness = value;
     }
+
+    private void openInfoPopup() {
+        try {
+            LayoutInflater inflater = (LayoutInflater) ClockActivity.this
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View layout = inflater.inflate(R.layout.popup_info,
+                    (ViewGroup) findViewById(R.id.popup_element));
+
+            infoPopup = new PopupWindow(layout, layout.getLayoutParams().WRAP_CONTENT, layout.getLayoutParams().WRAP_CONTENT, true);
+            infoPopup.showAtLocation(layout, Gravity.CENTER, 0, 0);
+
+            popupConfirmButton = (Button) layout.findViewById(R.id.btn_close_popup);
+            popupConfirmButton.setOnClickListener(confirmButtonOnClickListener);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private View.OnClickListener confirmButtonOnClickListener = new View.OnClickListener() {
+        public void onClick(View v) {
+            infoPopup.dismiss();
+        }
+    };
 }
