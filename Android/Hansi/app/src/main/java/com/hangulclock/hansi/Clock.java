@@ -9,6 +9,7 @@ import android.content.IntentFilter;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.text.format.Time;
+import android.util.Log;
 
 /**
  * Created by Sean on 10/9/2015.
@@ -16,10 +17,11 @@ import android.text.format.Time;
 public class Clock
 {
     public interface OnClockTickListener {
-        public void OnSecondTick(Time currentTime);
+        void OnSecondTick(Time currentTime);
+        void OnMinuteTick(Time currentTime);
     }
 
-    private Time Time;
+    private Time time;
     private TimeZone TimeZone;
     private Handler Handler;
     private List<OnClockTickListener> OnClockTickListenerList = new ArrayList<OnClockTickListener>();
@@ -29,23 +31,47 @@ public class Clock
     private  BroadcastReceiver IntentReceiver;
     private IntentFilter IntentFilter;
 
-    Context Context;
+    public static final int TICKPERSECOND=0;  // default tick method
+    public static final int TICKPERMINUTE=1;
+
+    private int tickMethod = 0;
+
+    Context context;
 
     public Clock(Context context) {
-        this.Context=context;
-        this.Time=new Time();
-        this.Time.setToNow();
+        this(context, Clock.TICKPERSECOND);
+    }
 
+    public Clock(Context context, int tickMethod) {
+        this.context=context;
+        this.tickMethod = tickMethod;
+        this.time = new Time();
+        this.time.setToNow();
+
+        switch (tickMethod) {
+            case 0: this.startTickPerSecond(); break;
+            case 1: this.startTickPerMinute(); break;
+        }
         this.startTickPerSecond();
     }
     private void tick(long tickInMillis) {
-        Clock.this.Time.set(Clock.this.Time.toMillis(true)+tickInMillis);
+        this.time.setToNow();
+        Log.d("called from " + context.toString(), time.toString());
+        Clock.this.time.set(Clock.this.time.toMillis(true)+tickInMillis);
         this.notifyOnTickListeners();
     }
 
     private void notifyOnTickListeners() {
-        for(OnClockTickListener listener:OnClockTickListenerList) {
-            listener.OnSecondTick(Time);
+        switch (tickMethod) {
+            case 0:
+                for(OnClockTickListener listener:OnClockTickListenerList) {
+                    listener.OnSecondTick(time);
+                } break;
+
+            case 1:
+                for(OnClockTickListener listener:OnClockTickListenerList) {
+                    listener.OnMinuteTick(time);
+                } break;
         }
     }
 
@@ -62,12 +88,23 @@ public class Clock
             }
         };
         this.Ticker.run();
+    }
 
+    private void startTickPerMinute() {
+        this.IntentReceiver= new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                tick(60000);
+            }
+        };
+        this.IntentFilter = new IntentFilter();
+        this.IntentFilter.addAction(Intent.ACTION_TIME_TICK);
+        this.context.registerReceiver(this.IntentReceiver, this.IntentFilter, null, this.Handler);
     }
 
     public void stopTick() {
         if(this.IntentReceiver!=null) {
-            this.Context.unregisterReceiver(this.IntentReceiver);
+            this.context.unregisterReceiver(this.IntentReceiver);
         }
 
         if(this.Handler!=null) {
@@ -76,7 +113,7 @@ public class Clock
     }
 
     public Time getCurrentTime() {
-        return this.Time;
+        return this.time;
     }
 
     public void setClockTickListener(OnClockTickListener listener) {

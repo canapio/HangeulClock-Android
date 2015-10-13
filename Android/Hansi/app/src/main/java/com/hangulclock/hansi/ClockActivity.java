@@ -295,6 +295,11 @@ public class ClockActivity extends Activity implements
                 tvBigSec1.setText(currSec);
                 tvBigSec1.startAnimation(AnimationUtils.loadAnimation(ClockActivity.this, R.anim.fade_in_and_slide_down));
             }
+
+            @Override
+            public void OnMinuteTick(Time currentTime) {
+                // do nothing in this class
+            }
         });
     }
 

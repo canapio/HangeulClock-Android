@@ -34,7 +34,7 @@ public class ClockService extends Service {
     boolean isMinChanged = false;
     boolean isSecChanged = false;
     boolean isYrChanged = false;
-    boolean isdayOfWeekChanged = false;
+    boolean isDayOfWeekChanged = false;
     boolean isAMPMChanged = false;
 
     @Nullable
@@ -49,11 +49,16 @@ public class ClockService extends Service {
 
         kt = new KoreanTranslator();
 
-        Clock clock = new Clock(getApplicationContext());
+        Clock clock = new Clock(getApplicationContext(), 1);  // only use by minute
         clock.setClockTickListener(new Clock.OnClockTickListener() {
 
             @Override
             public void OnSecondTick(Time currentTime) {
+                // do nothing in this class
+            }
+
+            @Override
+            public void OnMinuteTick(Time currentTime) {
                 SimpleDateFormat mSimpleDataFormat = new SimpleDateFormat("yy:M:d:EEE:h:m:s:aa", Locale.ENGLISH);
                 currTimeStr = mSimpleDataFormat.format(currentTime.toMillis(true)).toString().split(":");
                 String tmp = "";
@@ -76,11 +81,11 @@ public class ClockService extends Service {
                             break;
                         case 3:
                             if (currDayOfWeek.equals(tmp = kt.dayOfWeekHanhulWithIndex(currTimeStr[i]))) {
-                                isdayOfWeekChanged = false;
+                                isDayOfWeekChanged = false;
                                 break;
                             }
                             currDayOfWeek = tmp;
-                            isdayOfWeekChanged = true;
+                            isDayOfWeekChanged = true;
                             break;
                         case 4:
                             if (currHour.equals(tmp = kt.convert(currTimeStr[i], ConvertType.tcType_hour))) {
