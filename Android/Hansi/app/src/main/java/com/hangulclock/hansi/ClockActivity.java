@@ -34,6 +34,11 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
+import sdk.adenda.lockscreen.AdendaAgent;
+import sdk.adenda.widget.AdendaAlertDialog;
+import sdk.adenda.widget.AdendaButton;
+import sdk.adenda.widget.AdendaButtonCallback;
+
 public class ClockActivity extends Activity implements
         GestureDetector.OnGestureListener {
     private static final String TAG = ClockActivity.class.getSimpleName();
@@ -506,4 +511,59 @@ public class ClockActivity extends Activity implements
             infoPopup.dismiss();
         }
     };
+
+    private void openOptionPopup() {
+        try {
+            LayoutInflater inflater = (LayoutInflater) ClockActivity.this
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View layout = inflater.inflate(R.layout.popup_option,
+                    (ViewGroup) findViewById(R.id.popup_option_element));
+
+            infoPopup = new PopupWindow(layout, layout.getLayoutParams().WRAP_CONTENT, layout.getLayoutParams().WRAP_CONTENT, true);
+            infoPopup.showAtLocation(layout, Gravity.CENTER, 0, 0);
+
+            // Set Adenda button
+            final AdendaButton button = (AdendaButton) findViewById(R.id.lock_in_button);
+            button.setAdendaCallback(new AdendaButtonCallback() {
+                @Override
+                public String getUserId() {
+                    return "123456";
+                }
+
+                @Override
+                public String getUserGender() {
+                    return "m";
+                }
+
+                @Override
+                public String getUserDob() {
+                    return "19940113";
+                }
+
+                @Override
+                public float getUserLatitude() {
+                    return 0;
+                }
+
+                @Override
+                public float getUserLongitude() {
+                    return 0;
+                }
+
+                @Override public void onPreOptIn() {}
+                @Override public void onPreOptOut() {}
+                @Override public void onPostOptIn() {}
+                @Override public void onPostOptOut() {}
+            });
+
+           //long AdendaAgent.addCustomFragmentContent (getApplicationContext(), String actionUri,
+           //         String className, Bundle bundle, String identifier, boolean GTC)
+
+            final Button popupConfirmButton = (Button) layout.findViewById(R.id.btn_close_popup_option);
+            popupConfirmButton.setOnClickListener(confirmButtonOnClickListener);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

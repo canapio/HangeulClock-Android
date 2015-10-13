@@ -56,7 +56,7 @@ public class Clock
     }
     private void tick(long tickInMillis) {
         this.time.setToNow();
-        Log.d("called from " + context.toString(), time.toString());
+        //Log.d("called from " + context.toString(), time.toString());
         Clock.this.time.set(Clock.this.time.toMillis(true)+tickInMillis);
         this.notifyOnTickListeners();
     }

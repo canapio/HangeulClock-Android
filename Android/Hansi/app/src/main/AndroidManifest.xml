@@ -17,6 +17,9 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <meta-data android:name="adenda_app_id" android:value="VXIEKLDFZQYZ2HGOPGC5" />
+            <meta-data android:name="adenda_app_key" android:value="C1QVDIIUHBQYKFXNKTRQ4NQWVCEMMCJM4YO85LXS" />
         </activity>
 
         <receiver
