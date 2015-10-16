@@ -3,6 +3,7 @@ package com.hangulclock.hansi;
 import android.content.Context;
 import android.provider.Settings.Secure;
 
+import sdk.adenda.lockscreen.AdendaAgent;
 import sdk.adenda.widget.AdendaButtonCallback;
 
 public class AdendaHansiCallback implements AdendaButtonCallback {
@@ -67,8 +68,7 @@ public class AdendaHansiCallback implements AdendaButtonCallback {
 
 	@Override
 	public void onPostOptOut() {
-		// TODO Auto-generated method stub
-
+		AdendaAgent.addCustomFragmentContent(mContext, null, "com.hangulclock.hansi.LockscreenFragment", null, null, true);
 	}
 
 }
