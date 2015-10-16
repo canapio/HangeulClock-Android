@@ -33,7 +33,6 @@ public class OptionActivity extends Activity {
         button.setAdendaCallback(mAdendaCallback);
 
         AdendaAgent.setEnableAds(this, false);
-        AdendaAgent.addCustomFragmentContent (this, null, "com.hangulclock.hansi.LockscreenFragment", null, null, true);
     }
 
 }
