@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -54,8 +55,8 @@ public class LockscreenFragment extends Fragment implements AdendaFragmentInterf
     boolean isDayOfWeekChanged = false;
     boolean isAMPMChanged = false;
 
-    FrameLayout activityH;
-    FrameLayout activityV;
+    LinearLayout activityH;
+    LinearLayout activityV;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -83,7 +84,7 @@ public class LockscreenFragment extends Fragment implements AdendaFragmentInterf
                 currOrientation = 1;
         }
 
-        activityH = (FrameLayout) getActivity().findViewById(R.id.mainlayout_v);
+        activityH = (LinearLayout) getActivity().findViewById(R.id.layout_frag_lockscreen);
         activityV = activityH;
 
         final Typeface nanumGothic = Typeface.createFromAsset(getActivity().getAssets(), "fonts/NanumGothic.ttf");

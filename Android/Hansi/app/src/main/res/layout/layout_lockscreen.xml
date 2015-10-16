@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:id="@+id/layout_frag_lockscreen">
 
     <fragment android:name="com.hangulclock.hansi.LockscreenFragment"
         android:id="@+id/headlines_fragment"
