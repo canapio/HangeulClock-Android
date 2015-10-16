@@ -1,25 +1,34 @@
 package com.hangulclock.hansi;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.os.PowerManager;
 import android.text.format.Time;
 import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
-public class LockscreenFragment extends Fragment {
+import sdk.adenda.lockscreen.fragments.AdendaFragmentInterface;
+
+public class LockscreenFragment extends Fragment implements AdendaFragmentInterface {
     private static final String TAG = ClockActivity.class.getSimpleName();
 
     KoreanTranslator kt;
@@ -52,9 +61,9 @@ public class LockscreenFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if (currOrientation == 0)
-            return inflater.inflate(R.layout.activity_clock_v, container, false);
+            return inflater.inflate(R.layout.lockscreen_layout, container, false);
         else
-            return inflater.inflate(R.layout.activity_clock_h, container, false);
+            return inflater.inflate(R.layout.lockscreen_layout, container, false);
 
     }
     @Override
@@ -74,11 +83,8 @@ public class LockscreenFragment extends Fragment {
                 currOrientation = 1;
         }
 
-        activityH = (FrameLayout) getActivity().findViewById(R.id.mainlayout_h);
-        activityV = (FrameLayout) getActivity().findViewById(R.id.mainlayout_v);
-
-        if (currOrientation == 0) activityV.getForeground().setAlpha(0);
-        else activityH.getForeground().setAlpha(0);
+        activityH = (FrameLayout) getActivity().findViewById(R.id.mainlayout_v);
+        activityV = activityH;
 
         final Typeface nanumGothic = Typeface.createFromAsset(getActivity().getAssets(), "fonts/NanumGothic.ttf");
         final Typeface nanumGothicBold = Typeface.createFromAsset(getActivity().getAssets(), "fonts/NanumGothicBold.ttf");
@@ -87,35 +93,35 @@ public class LockscreenFragment extends Fragment {
 
         // 최상단 년월일
         if (currOrientation == 0) {
-            tvTop = (AutoResizeTextView) getActivity().findViewById(R.id.tv_top_v);
+            tvTop = (AutoResizeTextView) getActivity().findViewById(R.id.frag_tv_top_v);
         } else {
-            tvTop = (TextView) getActivity().findViewById(R.id.tv_top_h);
+            tvTop = (TextView) getActivity().findViewById(R.id.frag_tv_top_v);
         }
         // 상단 큰 시간
-        final TextView tvBigTime = (TextView) getActivity().findViewById(R.id.tv_big_time);
-        final TextView tvBigHour = (TextView) getActivity().findViewById(R.id.tv_big_hour);
+        final TextView tvBigTime = (TextView) getActivity().findViewById(R.id.frag_tv_big_time);
+        final TextView tvBigHour = (TextView) getActivity().findViewById(R.id.frag_tv_big_hour);
 
         // 상단 큰 오전/오후
-        final TextView tvAMPMUnit = (TextView) getActivity().findViewById(R.id.tv_ampm_unit);
-        final TextView tvAMPM = (TextView) getActivity().findViewById(R.id.tv_ampm);
+        final TextView tvAMPMUnit = (TextView) getActivity().findViewById(R.id.frag_tv_ampm_unit);
+        final TextView tvAMPM = (TextView) getActivity().findViewById(R.id.frag_tv_ampm);
 
         // 상단 큰 분
-        final TextView tvBigMinUnit = (TextView) getActivity().findViewById(R.id.tv_big_min_unit);
-        final TextView tvBigMin1 = (TextView) getActivity().findViewById(R.id.tv_big_min_1);
-        final TextView tvBigMin2 = (TextView) getActivity().findViewById(R.id.tv_big_min_2);
-        final TextView tvBigMin3 = (TextView) getActivity().findViewById(R.id.tv_big_min_3);
+        final TextView tvBigMinUnit = (TextView) getActivity().findViewById(R.id.frag_tv_big_min_unit);
+        final TextView tvBigMin1 = (TextView) getActivity().findViewById(R.id.frag_tv_big_min_1);
+        final TextView tvBigMin2 = (TextView) getActivity().findViewById(R.id.frag_tv_big_min_2);
+        final TextView tvBigMin3 = (TextView) getActivity().findViewById(R.id.frag_tv_big_min_3);
 
         // 상단 큰 초
-        final TextView tvBigSecUnit = (TextView) getActivity().findViewById(R.id.tv_big_sec_unit);
-        final TextView tvBigSec1 = (TextView) getActivity().findViewById(R.id.tv_big_sec_1);
-        final TextView tvBigSec2 = (TextView) getActivity().findViewById(R.id.tv_big_sec_2);
-        final TextView tvBigSec3 = (TextView) getActivity().findViewById(R.id.tv_big_sec_3);
+        final TextView tvBigSecUnit = (TextView) getActivity().findViewById(R.id.frag_tv_big_sec_unit);
+        final TextView tvBigSec1 = (TextView) getActivity().findViewById(R.id.frag_tv_big_sec_1);
+        final TextView tvBigSec2 = (TextView) getActivity().findViewById(R.id.frag_tv_big_sec_2);
+        final TextView tvBigSec3 = (TextView) getActivity().findViewById(R.id.frag_tv_big_sec_3);
 
         // 하단 작은 text view
-        final TextView tvSmallYr = (TextView) getActivity().findViewById(R.id.tv_small_yr);
-        final TextView tvSmallDate = (TextView) getActivity().findViewById(R.id.tv_small_date);
-        final TextView tvSmallDayOfWeek = (TextView) getActivity().findViewById(R.id.tv_small_day_of_week);
-        final TextView tvSmallAMPM = (TextView) getActivity().findViewById(R.id.tv_small_ampm);
+        final TextView tvSmallYr = (TextView) getActivity().findViewById(R.id.frag_tv_small_yr);
+        final TextView tvSmallDate = (TextView) getActivity().findViewById(R.id.frag_tv_small_date);
+        final TextView tvSmallDayOfWeek = (TextView) getActivity().findViewById(R.id.frag_tv_small_day_of_week);
+        final TextView tvSmallAMPM = (TextView) getActivity().findViewById(R.id.frag_tv_small_ampm);
 
        /*
         *   시간 : ExtraBold
@@ -247,6 +253,9 @@ public class LockscreenFragment extends Fragment {
                 // do nothing in this class
             }
         });
+
+        setRetainInstance(true);
+
     }
 
     public static int getScreenOrientation(Activity activity) {
@@ -272,5 +281,73 @@ public class LockscreenFragment extends Fragment {
 
     private String addSpace(String str) {
         return str.replace("", "   ").trim();
+    }
+
+    @Override
+    public Pair<Integer, Integer> getGlowpadResources() { return null; }
+
+    @Override
+    public boolean getStartHelperForResult() { return false; }
+
+    @Override
+    public boolean coverEntireScreen() {
+        return true;
+    }
+
+    @Override
+    public boolean expandOnRotation() {
+        return true;
+    }
+
+    @Override
+    public Intent getActionIntent() { return null; }
+
+    @Override
+    public void onActionFollowedAndLockScreenDismissed() { }
+
+
+    boolean mScreenOn;
+    ScreenStateReceiver mReceiver;
+
+    private class ScreenStateReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
+                mScreenOn = false;
+            }
+            else if (intent.getAction().equals(Intent.ACTION_SCREEN_ON)) {
+                mScreenOn = true;
+            }
+        }
+    }
+
+    @Override
+    public void onActivityCreated (Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        // Get initial screen state
+        PowerManager pm = (PowerManager) getActivity().getSystemService(Context.POWER_SERVICE);
+        mScreenOn = pm.isScreenOn();
+
+        // Initialize Receiver
+        intializeReceiver();
+    }
+
+    private void intializeReceiver() {
+        // Instantiate receiver
+        mReceiver = new ScreenStateReceiver();
+        // Create Screen On and Screen Off filters for BroadcastReceiver
+        IntentFilter screenFilter = new IntentFilter(Intent.ACTION_SCREEN_ON);
+        screenFilter.addAction(Intent.ACTION_SCREEN_OFF);
+        // Register screen filters
+        getActivity().registerReceiver(mReceiver, screenFilter);
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+
+        // Unregister receiver to avoid memory leaks!
+        getActivity().unregisterReceiver(mReceiver);
     }
 }

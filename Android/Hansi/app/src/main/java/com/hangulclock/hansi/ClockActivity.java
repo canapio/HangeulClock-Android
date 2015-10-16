@@ -35,7 +35,6 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 import sdk.adenda.lockscreen.AdendaAgent;
-import sdk.adenda.widget.AdendaAlertDialog;
 import sdk.adenda.widget.AdendaButton;
 import sdk.adenda.widget.AdendaButtonCallback;
 
@@ -90,6 +89,9 @@ public class ClockActivity extends Activity implements
     private PopupWindow infoPopup;
 
     private Locale currLocale;
+
+    private AdendaHansiCallback mAdendaHansiCallback;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -377,16 +379,16 @@ public class ClockActivity extends Activity implements
 
         // TODO: add 설정 menu
         Dialog d = new AlertDialog.Builder(ClockActivity.this, AlertDialog.THEME_DEVICE_DEFAULT_DARK)
-                .setItems(new String[]{"평가하기", "건의하기", "앱 정보", "취소"}, new DialogInterface.OnClickListener() {
+                .setItems(new String[]{"설정", "평가하기", "건의하기", "앱 정보", "취소"}, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dlg, int position) {
-//                        if (position == 0) {
-//                            mDialogListener.onDialogClose();
-//                            mBlurred = false;
-//                        }
+                        if (position == 0) {
+                            Intent intent = new Intent(ClockActivity.this, OptionActivity.class);
+                            startActivity(intent);
+                        }
 
                         // Open the link to the app
-                        if (position == 0) {
+                        if (position == 1) {
                             Intent intent = new Intent(Intent.ACTION_VIEW);
                             intent.setData(Uri.parse(APP_LINK));
                             try {
@@ -410,7 +412,7 @@ public class ClockActivity extends Activity implements
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
-                        } else if (position == 1) {
+                        } else if (position == 2) {
                             int versionCode = BuildConfig.VERSION_CODE;
                             String versionName = BuildConfig.VERSION_NAME;
 
@@ -427,7 +429,7 @@ public class ClockActivity extends Activity implements
 
                             /* Send it off to the Activity-Chooser */
                             startActivity(Intent.createChooser(emailIntent, "건의하기"));
-                        } else if (position == 2) {
+                        } else if (position == 3) {
                             openInfoPopup();
                         }
                         else {
@@ -511,59 +513,4 @@ public class ClockActivity extends Activity implements
             infoPopup.dismiss();
         }
     };
-
-    private void openOptionPopup() {
-        try {
-            LayoutInflater inflater = (LayoutInflater) ClockActivity.this
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View layout = inflater.inflate(R.layout.popup_option,
-                    (ViewGroup) findViewById(R.id.popup_option_element));
-
-            infoPopup = new PopupWindow(layout, layout.getLayoutParams().WRAP_CONTENT, layout.getLayoutParams().WRAP_CONTENT, true);
-            infoPopup.showAtLocation(layout, Gravity.CENTER, 0, 0);
-
-            // Set Adenda button
-            final AdendaButton button = (AdendaButton) findViewById(R.id.lock_in_button);
-            button.setAdendaCallback(new AdendaButtonCallback() {
-                @Override
-                public String getUserId() {
-                    return "123456";
-                }
-
-                @Override
-                public String getUserGender() {
-                    return "m";
-                }
-
-                @Override
-                public String getUserDob() {
-                    return "19940113";
-                }
-
-                @Override
-                public float getUserLatitude() {
-                    return 0;
-                }
-
-                @Override
-                public float getUserLongitude() {
-                    return 0;
-                }
-
-                @Override public void onPreOptIn() {}
-                @Override public void onPreOptOut() {}
-                @Override public void onPostOptIn() {}
-                @Override public void onPostOptOut() {}
-            });
-
-           //long AdendaAgent.addCustomFragmentContent (getApplicationContext(), String actionUri,
-           //         String className, Bundle bundle, String identifier, boolean GTC)
-
-            final Button popupConfirmButton = (Button) layout.findViewById(R.id.btn_close_popup_option);
-            popupConfirmButton.setOnClickListener(confirmButtonOnClickListener);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }

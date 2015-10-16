@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_top_option"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="환경설정"
+        android:textSize="30sp"
+        android:gravity="center"
+        android:textColor="#fff" />
+
+    <sdk.adenda.widget.AdendaButton
+        xmlns:adenda="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/lock_on_button"
+        android:layout_below="@+id/tv_top_option"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        adenda:confirm_opt_in="false"
+        adenda:confirm_opt_out="false"
+        adenda:opt_in_text="Lockscreen rewards"
+        adenda:opt_out_text="Restore lockscreen"
+        android:textColor="#fff"
+        android:textSize="15sp" />
+
+    <Button
+        android:id="@+id/btn_close_option"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:layout_marginTop="15sp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:text="돌아가기"
+        android:textColor="#fff" />
+
+</RelativeLayout>
