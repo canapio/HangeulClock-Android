@@ -94,11 +94,14 @@ public class LockscreenFragment extends Fragment implements AdendaFragmentInterf
         final Typeface nanumGothicLight = Typeface.createFromAsset(getActivity().getAssets(), "fonts/NanumGothicLight.ttf");
 
         // 최상단 년월일
-        if (currOrientation == 0) {
-            tvTop = (AutoResizeTextView) view.findViewById(R.id.frag_tv_top_v);
+        tvTop = (TextView) view.findViewById(R.id.frag_tv_top_v);
+
+        /*if (currOrientation == 0) {
+            tvTop = (TextView) view.findViewById(R.id.frag_tv_top_v);
         } else {
             tvTop = (TextView) view.findViewById(R.id.frag_tv_top_v);
-        }
+        }*/
+
         // 상단 큰 시간
         final TextView tvBigTime = (TextView) view.findViewById(R.id.frag_tv_big_time);
         final TextView tvBigHour = (TextView) view.findViewById(R.id.frag_tv_big_hour);

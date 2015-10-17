@@ -1,5 +1,8 @@
 #Update Log
 
+###Version 2.0.1 (10/17/2015)
+  - Text size fixed for all system font size
+
 ###Version 2.0.0 (10/17/2015)
   - Lock screen is now supported!
   - Long press the clock screen for 1~2 seconds -> 설정 -> Push "잠금화면 활성화 누르기" to activate lock screen

@@ -16,6 +16,7 @@ import android.support.v4.view.GestureDetectorCompat;
 import android.text.format.Time;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -154,7 +155,7 @@ public class ClockActivity extends Activity implements
 
         // 최상단 년월일
         if (currOrientation == 0) {
-            tvTop = (AutoResizeTextView) findViewById(R.id.tv_top_v);
+            tvTop = (TextView) findViewById(R.id.tv_top_v);
         } else {
             tvTop = (TextView) findViewById(R.id.tv_top_h);
         }
