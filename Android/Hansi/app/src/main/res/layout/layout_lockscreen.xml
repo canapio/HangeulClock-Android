@@ -11,6 +11,6 @@
         android:layout_weight="1"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        tools:layout="@layout/lockscreen_layout" />
+        tools:layout="@layout/lockscreen_layout_v" />
 
 </LinearLayout>

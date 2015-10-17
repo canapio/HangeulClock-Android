@@ -18,10 +18,10 @@ import android.view.LayoutInflater;
 import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -59,15 +59,10 @@ public class LockscreenFragment extends Fragment implements AdendaFragmentInterf
     FrameLayout activityV;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-        View view = null;
-        if (currOrientation == 0)
-            view = inflater.inflate(R.layout.lockscreen_layout, container, false);
-        else
-            view = inflater.inflate(R.layout.lockscreen_layout, container, false);
-
-        if (getScreenOrientation(getActivity()) == ActivityInfo.SCREEN_ORIENTATION_PORTRAIT ||
+        /*if (getScreenOrientation(getActivity()) == ActivityInfo.SCREEN_ORIENTATION_PORTRAIT ||
                 getScreenOrientation(getActivity()) == ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT ||
                 getScreenOrientation(getActivity()) == ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED) {
             currOrientation = 0;
@@ -78,10 +73,20 @@ public class LockscreenFragment extends Fragment implements AdendaFragmentInterf
                 currOrientation = 2;
             else
                 currOrientation = 1;
-        }
+        }*/
+    }
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = null;
+        //if (currOrientation == 0)
+            view = inflater.inflate(R.layout.lockscreen_layout_v, container, false);
+        //else
+        //    view = inflater.inflate(R.layout.lockscreen_layout_h, container, false);
 
-        activityH = (FrameLayout) view.findViewById(R.id.mainlayout_v);
-        activityV = activityH;
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
+
+        activityH = (FrameLayout) view.findViewById(R.id.fragmentlayout_h);
+        activityV = (FrameLayout) view.findViewById(R.id.fragmentlayout_v);
 
         final Typeface nanumGothic = Typeface.createFromAsset(getActivity().getAssets(), "fonts/NanumGothic.ttf");
         final Typeface nanumGothicBold = Typeface.createFromAsset(getActivity().getAssets(), "fonts/NanumGothicBold.ttf");

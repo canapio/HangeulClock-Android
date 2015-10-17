@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.hangulclock.hansi" >
+    package="com.hangulclock.hansi"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <application
         android:allowBackup="true"
@@ -44,6 +45,12 @@
             android:name=".OptionActivity"
             android:label="@string/title_activity_option"
             android:theme="@style/Theme.AppCompat.NoActionBar">
+        </activity>
+
+        <activity
+            tools:replace="theme"
+            android:theme="@style/FullscreenImmersiveSticky"
+            android:name="sdk.adenda.lockscreen.LockScreenAppActivity">
         </activity>
     </application>
 

@@ -13,6 +13,8 @@ public class AdendaHansiCallback implements AdendaButtonCallback {
 	public AdendaHansiCallback(Context context)
 	{
 		mContext = context;
+        AdendaAgent.setUnlockType(mContext, AdendaAgent.ADENDA_UNLOCK_TYPE_GLOWPAD);
+        AdendaAgent.setGlowPadResources(mContext, R.drawable.glowpad_resources, R.array.adenda_custom_target_drawables);
 	}
 	
 	@Override
@@ -26,49 +28,27 @@ public class AdendaHansiCallback implements AdendaButtonCallback {
 	}
 
 	@Override
+	public void onPostOptOut() {
+		AdendaAgent.addCustomFragmentContent(mContext, null, "com.hangulclock.hansi.LockscreenFragment", null, null, true);
+	}
+
+	@Override
 	public String getUserGender() {
 		return "m";
 	}
 
 	@Override
-	public String getUserDob() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	public String getUserDob() { return null; }
 	@Override
-	public float getUserLatitude() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
+	public float getUserLatitude() { return 0; }
 	@Override
-	public float getUserLongitude() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	
+	public float getUserLongitude() { return 0;	}
 	@Override
-	public void onPreOptIn() {
-		// TODO Auto-generated method stub
-
-	}
-
+	public void onPreOptIn() {	}
 	@Override
-	public void onPreOptOut() {
-		// TODO Auto-generated method stub
-
-	}
-
+	public void onPreOptOut() {	}
 	@Override
-	public void onPostOptIn() {
-		// TODO Auto-generated method stub
+	public void onPostOptIn() {	}
 
-	}
-
-	@Override
-	public void onPostOptOut() {
-		AdendaAgent.addCustomFragmentContent(mContext, null, "com.hangulclock.hansi.LockscreenFragment", null, null, true);
-	}
 
 }

@@ -26,8 +26,8 @@
         android:layout_marginRight="15dp"
         adenda:confirm_opt_in="false"
         adenda:confirm_opt_out="false"
-        adenda:opt_in_text="Lockscreen rewards"
-        adenda:opt_out_text="Restore lockscreen"
+        adenda:opt_in_text="잠금화면 활성화"
+        adenda:opt_out_text="잠금화면 비활성화"
         android:textColor="#fff"
         android:textSize="15sp" />
 
