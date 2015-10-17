@@ -75,6 +75,9 @@ public class ClockActivity extends Activity implements
     private int lBound;
     private int uBound;
 
+    BrightnessController brightnessController;
+
+
     FrameLayout activityH;
     FrameLayout activityV;
     boolean mBlurred = false;
@@ -117,6 +120,9 @@ public class ClockActivity extends Activity implements
         metrics = new DisplayMetrics();
 
         calcBounds();
+
+        brightnessController = new BrightnessController(this);
+//        brightnessController.setUpInit(-1.f, lBound, uBound);
 
         activityH = (FrameLayout) findViewById(R.id.mainlayout_h);
         activityV = (FrameLayout) findViewById(R.id.mainlayout_v);
@@ -347,6 +353,7 @@ public class ClockActivity extends Activity implements
 
     @Override
     public boolean onDown(MotionEvent e) {
+        brightnessController.setUpInit(e.getY(), lBound, uBound);
         return false;
     }
 
@@ -364,7 +371,7 @@ public class ClockActivity extends Activity implements
     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
                             float distanceY) {
         //Log.d(TAG, "onScroll: " + e1.toString()+e2.toString());
-        updateBrightness(e2.getY());
+        brightnessController.updateBrightness(e2.getY(), lBound, uBound);
         return true;
     }
 
@@ -472,22 +479,6 @@ public class ClockActivity extends Activity implements
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         lBound = getMargin();
         uBound = getHeight() - getMargin();
-    }
-
-    public void updateBrightness(float y) {
-        float ratio = (y - lBound) / (uBound - lBound);
-        float value = 255.0f - ratio * 255.0f;
-
-        if (value < 20) {
-            value = 20;
-        } else if (value > 255) {
-            value = 255;
-        }
-
-        WindowManager.LayoutParams lp = getWindow().getAttributes();
-        lp.screenBrightness = value / 255.0f;
-
-        getWindow().setAttributes(lp);
     }
 
     private void openInfoPopup() {
