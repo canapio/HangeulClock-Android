@@ -3,6 +3,5 @@
     <array name="adenda_custom_target_drawables">
         <item>@drawable/ic_item_unlock</item>
         <item>@drawable/ic_item_camera</item>
-        <item>@drawable/ic_item_google</item>
     </array>
 </resources>
