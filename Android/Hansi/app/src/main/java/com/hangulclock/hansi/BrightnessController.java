@@ -28,7 +28,7 @@ public class BrightnessController {
         ratio = 1.f-ratio;
 
         currentRatio += (ratio - beforeRatio)*1.5f;
-        Log.e("moving", "currentRatio : "+currentRatio);
+        Log.i("moving", "currentRatio : "+currentRatio);
         beforeRatio = ratio;
 
 

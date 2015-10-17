@@ -13,12 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!--ImageView
-            android:background="@drawable/launch_image_landscape"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:scaleType="centerCrop" /-->
-
         <TextView android:id="@+id/tv_top_h"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -31,8 +25,7 @@
             android:layout_marginTop="10sp"
             android:layout_marginLeft="20sp"
             android:layout_marginStart="20sp"
-            android:maxLines="1"
-            android:text="이천십오년 시월 십일 토요일"/>
+            android:maxLines="1" />
 
         <RelativeLayout
             android:id="@+id/rl_top_ampm_hour"
@@ -71,8 +64,7 @@
                 android:textSize="90sp"
                 android:layout_alignBottom="@+id/tv_ampm_unit"
                 android:layout_toRightOf="@+id/tv_ampm"
-                android:layout_toEndOf="@+id/tv_ampm"
-                android:text="아홉"/>
+                android:layout_toEndOf="@+id/tv_ampm" />
 
             <TextView android:id="@+id/tv_big_hour"
                 android:layout_width="wrap_content"
@@ -109,8 +101,7 @@
             android:textSize="63sp"
             android:layout_alignBottom="@+id/tv_big_min_unit"
             android:layout_toLeftOf="@+id/tv_big_min_unit"
-            android:layout_toStartOf="@+id/tv_big_min_unit"
-            android:text="삼십이"/>
+            android:layout_toStartOf="@+id/tv_big_min_unit" />
 
         <TextView android:id="@+id/tv_big_min_2"
             android:layout_width="wrap_content"
@@ -157,8 +148,7 @@
             android:textSize="27sp"
             android:layout_alignBottom="@+id/tv_big_min_unit"
             android:layout_toLeftOf="@+id/tv_big_sec_unit"
-            android:layout_toStartOf="@+id/tv_big_sec_unit"
-            android:text="오십팔"/>
+            android:layout_toStartOf="@+id/tv_big_sec_unit" />
 
         <TextView android:id="@+id/tv_big_sec_2"
             android:layout_width="wrap_content"

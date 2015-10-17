@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.hangulclock.hansi" >
+    package="com.hangulclock.hansi"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/ThemeOverlay.AppCompat.Dark" >
+        <meta-data
+            android:name="adenda_app_id"
+            android:value="VXIEKLDFZQYZ2HGOPGC5" />
+        <meta-data
+            android:name="adenda_app_key"
+            android:value="C1QVDIIUHBQYKFXNKTRQ4NQWVCEMMCJM4YO85LXS" />
+
         <activity
             android:name=".ClockActivity"
             android:configChanges="keyboardHidden|screenSize"
@@ -14,8 +22,35 @@
             android:theme="@style/Theme.AppCompat.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <receiver
+            android:name=".AppWidget"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/app_widget_info" />
+        </receiver>
+
+        <service android:name=".ClockService" />
+
+        <activity
+            android:name=".OptionActivity"
+            android:label="@string/title_activity_option"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+        </activity>
+
+        <activity
+            tools:replace="theme"
+            android:theme="@style/FullscreenImmersiveSticky"
+            android:name="sdk.adenda.lockscreen.LockScreenAppActivity">
         </activity>
     </application>
 
