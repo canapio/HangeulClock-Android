@@ -32,6 +32,28 @@
         android:textSize="15sp" />
 
     <Button
+        android:id="@+id/btn_font_changer"
+        android:layout_below="@+id/lock_on_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:text="글꼴설정"
+        android:textSize="15sp"
+        android:textColor="#fff"/>
+
+    <Button
+        android:id="@+id/btn_color_changer"
+        android:layout_below="@+id/btn_font_changer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:text="색상설정"
+        android:textSize="15sp"
+        android:textColor="#fff"/>
+
+    <Button
         android:id="@+id/btn_close_option"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

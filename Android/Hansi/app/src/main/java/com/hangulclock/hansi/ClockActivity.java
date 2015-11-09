@@ -12,10 +12,12 @@ import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.view.GestureDetectorCompat;
 import android.text.format.Time;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.Size;
 import android.util.TypedValue;
 import android.view.GestureDetector;
 import android.view.Gravity;
@@ -62,6 +64,38 @@ public class ClockActivity extends Activity implements
 
     TextView tvTop;
 
+    // 상단 큰 시간
+    TextView tvBigTime;
+    TextView tvBigHour;
+
+    // 상단 큰 오전/오후
+    TextView tvAMPMUnit;
+    TextView tvAMPM;
+
+    // 상단 큰 분
+    TextView tvBigMinUnit;
+    TextView tvBigMin1;
+    TextView tvBigMin2;
+    TextView tvBigMin3;
+
+    // 상단 큰 초
+    TextView tvBigSecUnit;
+    TextView tvBigSec1;
+    TextView tvBigSec2;
+    TextView tvBigSec3;
+
+    // 하단 작은 text view
+    TextView tvSmallYr;
+    TextView tvSmallDate;
+    TextView tvSmallDayOfWeek;
+    TextView tvSmallAMPM;
+
+    Typeface[] typefaces;
+    Typeface typeface_regular;
+    Typeface typeface_bold;
+    Typeface typeface_extraBold;
+    Typeface typeface_light;
+
     boolean isHourChanged = false;
     boolean isMinChanged = false;
     boolean isSecChanged = false;
@@ -93,9 +127,6 @@ public class ClockActivity extends Activity implements
     private PopupWindow infoPopup;
 
     private Locale currLocale;
-
-    private AdendaHansiCallback mAdendaHansiCallback;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,11 +179,6 @@ public class ClockActivity extends Activity implements
 
         currLocale = getResources().getConfiguration().locale;
 
-        final Typeface nanumGothic = Typeface.createFromAsset(getAssets(), "fonts/NanumGothic.ttf");
-        final Typeface nanumGothicBold = Typeface.createFromAsset(getAssets(), "fonts/NanumGothicBold.ttf");
-        final Typeface nanumGothicExtraBold = Typeface.createFromAsset(getAssets(), "fonts/NanumGothicExtraBold.ttf");
-        final Typeface nanumGothicLight = Typeface.createFromAsset(getAssets(), "fonts/NanumGothicLight.ttf");
-
         // 최상단 년월일
         if (currOrientation == 0) {
             tvTop = (TextView) findViewById(R.id.tv_top_v);
@@ -160,54 +186,33 @@ public class ClockActivity extends Activity implements
             tvTop = (TextView) findViewById(R.id.tv_top_h);
         }
         // 상단 큰 시간
-        final TextView tvBigTime = (TextView) findViewById(R.id.tv_big_time);
-        final TextView tvBigHour = (TextView) findViewById(R.id.tv_big_hour);
+        tvBigTime = (TextView) findViewById(R.id.tv_big_time);
+        tvBigHour = (TextView) findViewById(R.id.tv_big_hour);
 
         // 상단 큰 오전/오후
-        final TextView tvAMPMUnit = (TextView) findViewById(R.id.tv_ampm_unit);
-        final TextView tvAMPM = (TextView) findViewById(R.id.tv_ampm);
+        tvAMPMUnit = (TextView) findViewById(R.id.tv_ampm_unit);
+        tvAMPM = (TextView) findViewById(R.id.tv_ampm);
 
         // 상단 큰 분
-        final TextView tvBigMinUnit = (TextView) findViewById(R.id.tv_big_min_unit);
-        final TextView tvBigMin1 = (TextView) findViewById(R.id.tv_big_min_1);
-        final TextView tvBigMin2 = (TextView) findViewById(R.id.tv_big_min_2);
-        final TextView tvBigMin3 = (TextView) findViewById(R.id.tv_big_min_3);
+        tvBigMinUnit = (TextView) findViewById(R.id.tv_big_min_unit);
+        tvBigMin1 = (TextView) findViewById(R.id.tv_big_min_1);
+        tvBigMin2 = (TextView) findViewById(R.id.tv_big_min_2);
+        tvBigMin3 = (TextView) findViewById(R.id.tv_big_min_3);
 
         // 상단 큰 초
-        final TextView tvBigSecUnit = (TextView) findViewById(R.id.tv_big_sec_unit);
-        final TextView tvBigSec1 = (TextView) findViewById(R.id.tv_big_sec_1);
-        final TextView tvBigSec2 = (TextView) findViewById(R.id.tv_big_sec_2);
-        final TextView tvBigSec3 = (TextView) findViewById(R.id.tv_big_sec_3);
+        tvBigSecUnit = (TextView) findViewById(R.id.tv_big_sec_unit);
+        tvBigSec1 = (TextView) findViewById(R.id.tv_big_sec_1);
+        tvBigSec2 = (TextView) findViewById(R.id.tv_big_sec_2);
+        tvBigSec3 = (TextView) findViewById(R.id.tv_big_sec_3);
 
         // 하단 작은 text view
-        final TextView tvSmallYr = (TextView) findViewById(R.id.tv_small_yr);
-        final TextView tvSmallDate = (TextView) findViewById(R.id.tv_small_date);
-        final TextView tvSmallDayOfWeek = (TextView) findViewById(R.id.tv_small_day_of_week);
-        final TextView tvSmallAMPM = (TextView) findViewById(R.id.tv_small_ampm);
+        tvSmallYr = (TextView) findViewById(R.id.tv_small_yr);
+        tvSmallDate = (TextView) findViewById(R.id.tv_small_date);
+        tvSmallDayOfWeek = (TextView) findViewById(R.id.tv_small_day_of_week);
+        tvSmallAMPM = (TextView) findViewById(R.id.tv_small_ampm);
 
-       /*
-        *   시간 : ExtraBold
-        *   오후 : Bold
-        *   분 : Light
-        *   초 : Normal
-        */
-        tvTop.setTypeface(nanumGothic);
-        tvBigTime.setTypeface(nanumGothicExtraBold);
-        tvBigHour.setTypeface(nanumGothicExtraBold);
-        tvAMPMUnit.setTypeface(nanumGothicBold);
-        tvAMPM.setTypeface(nanumGothicBold);
-        tvBigMinUnit.setTypeface(nanumGothicLight);
-        tvBigMin1.setTypeface(nanumGothicLight);
-        tvBigMin2.setTypeface(nanumGothicLight);
-        tvBigMin3.setTypeface(nanumGothicLight);
-        tvBigSecUnit.setTypeface(nanumGothic);
-        tvBigSec1.setTypeface(nanumGothic);
-        tvBigSec2.setTypeface(nanumGothic);
-        tvBigSec3.setTypeface(nanumGothic);
-        tvSmallYr.setTypeface(nanumGothic);
-        tvSmallDate.setTypeface(nanumGothic);
-        tvSmallDayOfWeek.setTypeface(nanumGothic);
-        tvSmallAMPM.setTypeface(nanumGothic);
+        FontChanger.setFont(this, PreferenceManager.getDefaultSharedPreferences(this).getString("font","nanumgothic"));
+        setFontStyles();
 
         kt = new KoreanTranslator();
 
@@ -317,6 +322,12 @@ public class ClockActivity extends Activity implements
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setFontStyles();
+    }
+
     public static int getScreenOrientation(Activity activity) {
         int rotation = activity.getWindowManager().getDefaultDisplay().getRotation();
         int orientation = activity.getResources().getConfiguration().orientation;
@@ -345,8 +356,6 @@ public class ClockActivity extends Activity implements
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         this.mDetector.onTouchEvent(event);
-
-
 
         // Be sure to call the superclass implementation
         return super.onTouchEvent(event);
@@ -505,4 +514,82 @@ public class ClockActivity extends Activity implements
             infoPopup.dismiss();
         }
     };
+
+    private void setFontStyles() {
+        String font = PreferenceManager.getDefaultSharedPreferences(this).getString("font","nanumgothic");
+        typefaces = FontChanger.getTypefaces();
+        typeface_regular = typefaces[0];
+        typeface_bold = typefaces[1];
+        typeface_extraBold = typefaces[2];
+        typeface_light = typefaces[3];
+
+        /*
+        *   시간 : ExtraBold
+        *   오후 : Bold
+        *   분 : Light
+        *   초 : Normal
+        */
+        tvTop.setTypeface(typeface_regular);
+        if (font.equals("nanumgothic")) {
+            tvBigTime.setTypeface(typeface_extraBold);
+            tvBigHour.setTypeface(typeface_extraBold);
+        } else {
+            tvBigTime.setTypeface(typeface_extraBold, Typeface.BOLD);
+            tvBigHour.setTypeface(typeface_extraBold, Typeface.BOLD);
+        }
+        tvAMPMUnit.setTypeface(typeface_bold);
+        tvAMPM.setTypeface(typeface_bold);
+        tvBigMinUnit.setTypeface(typeface_light);
+        tvBigMin1.setTypeface(typeface_light);
+        tvBigMin2.setTypeface(typeface_light);
+        tvBigMin3.setTypeface(typeface_light);
+        tvBigSecUnit.setTypeface(typeface_regular);
+        tvBigSec1.setTypeface(typeface_regular);
+        tvBigSec2.setTypeface(typeface_regular);
+        tvBigSec3.setTypeface(typeface_regular);
+        tvSmallYr.setTypeface(typeface_regular);
+        tvSmallDate.setTypeface(typeface_regular);
+        tvSmallDayOfWeek.setTypeface(typeface_regular);
+        tvSmallAMPM.setTypeface(typeface_regular);
+
+        // Set sizes
+        if (font.equals("nanumgothic")) {
+            tvTop.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 11);
+            tvBigTime.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 100);
+            tvBigHour.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 100);
+            tvAMPMUnit.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 35);
+            tvAMPM.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 35);
+            tvBigMinUnit.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 70);
+            tvBigMin1.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 70);
+            tvBigMin2.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 70);
+            tvBigMin3.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 70);
+            tvBigSecUnit.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 30);
+            tvBigSec1.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 30);
+            tvBigSec2.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 30);
+            tvBigSec3.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 30);
+            tvSmallYr.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 13);
+            tvSmallDate.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 13);
+            tvSmallDayOfWeek.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 13);
+            tvSmallAMPM.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 13);
+
+        } else {
+            tvTop.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
+            tvBigTime.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 120);
+            tvBigHour.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 120);
+            tvAMPMUnit.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 45);
+            tvAMPM.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 45);
+            tvBigMinUnit.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 90);
+            tvBigMin1.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 90);
+            tvBigMin2.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 90);
+            tvBigMin3.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 90);
+            tvBigSecUnit.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 50);
+            tvBigSec1.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 50);
+            tvBigSec2.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 50);
+            tvBigSec3.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 50);
+            tvSmallYr.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 13);
+            tvSmallDate.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 13);
+            tvSmallDayOfWeek.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 13);
+            tvSmallAMPM.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 13);
+        }
+    }
 }

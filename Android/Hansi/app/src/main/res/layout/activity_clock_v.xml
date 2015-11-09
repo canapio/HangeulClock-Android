@@ -13,12 +13,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <!--11dp-->
         <TextView android:id="@+id/tv_top_v"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:keepScreenOn="true"
             android:textColor="#fff"
-            android:textSize="11dp"
+            android:textSize="14dp"
             android:gravity="center_horizontal"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
@@ -33,12 +34,13 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_top_v">
 
+            <!--100dp-->
             <TextView android:id="@+id/tv_big_hour"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:keepScreenOn="true"
                 android:textColor="#fff"
-                android:textSize="100dp"
+                android:textSize="120dp"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="10dp"
@@ -49,17 +51,18 @@
                 android:layout_height="wrap_content"
                 android:keepScreenOn="true"
                 android:textColor="#fff"
-                android:textSize="100dp"
+                android:textSize="120dp"
                 android:layout_alignBottom="@+id/tv_big_hour"
                 android:layout_toLeftOf="@+id/tv_big_hour"
                 android:layout_toStartOf="@+id/tv_big_hour" />
 
+            <!--35dp-->
             <TextView android:id="@+id/tv_ampm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:keepScreenOn="true"
                 android:textColor="#fff"
-                android:textSize="35dp"
+                android:textSize="45dp"
                 android:layout_alignBottom="@+id/tv_big_hour"
                 android:layout_toLeftOf="@+id/tv_big_time"
                 android:layout_toStartOf="@+id/tv_big_time" />
@@ -69,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:keepScreenOn="true"
                 android:textColor="#fff"
-                android:textSize="35dp"
+                android:textSize="45dp"
                 android:layout_alignBottom="@+id/tv_big_hour"
                 android:layout_toLeftOf="@+id/tv_ampm"
                 android:layout_toStartOf="@+id/tv_ampm"
@@ -77,12 +80,13 @@
 
             </RelativeLayout>
 
+        <!--70dp-->
         <TextView android:id="@+id/tv_big_min_unit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:keepScreenOn="true"
             android:textColor="#fff"
-            android:textSize="70dp"
+            android:textSize="90dp"
             android:layout_below="@+id/rl_top_ampm_hour"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
@@ -96,7 +100,7 @@
             android:layout_height="wrap_content"
             android:keepScreenOn="true"
             android:textColor="#fff"
-            android:textSize="70dp"
+            android:textSize="90dp"
             android:layout_alignBottom="@+id/tv_big_min_unit"
             android:layout_toLeftOf="@+id/tv_big_min_unit"
             android:layout_toStartOf="@+id/tv_big_min_unit" />
@@ -106,7 +110,7 @@
             android:layout_height="wrap_content"
             android:keepScreenOn="true"
             android:textColor="#fff"
-            android:textSize="70dp"
+            android:textSize="90dp"
             android:layout_alignBottom="@+id/tv_big_min_unit"
             android:layout_toLeftOf="@+id/tv_big_min_1"
             android:layout_toStartOf="@+id/tv_big_min_1"
@@ -118,19 +122,20 @@
             android:layout_height="wrap_content"
             android:keepScreenOn="true"
             android:textColor="#fff"
-            android:textSize="70dp"
+            android:textSize="90dp"
             android:layout_alignBottom="@+id/tv_big_min_unit"
             android:layout_toLeftOf="@+id/tv_big_min_2"
             android:layout_toStartOf="@+id/tv_big_min_2"
             android:text="@string/zero"
             android:visibility="gone" />
 
+        <!--30dp-->
         <TextView android:id="@+id/tv_big_sec_unit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:keepScreenOn="true"
             android:textColor="#fff"
-            android:textSize="30dp"
+            android:textSize="50dp"
             android:layout_below="@+id/tv_big_min_1"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
@@ -144,7 +149,7 @@
             android:layout_height="wrap_content"
             android:keepScreenOn="true"
             android:textColor="#fff"
-            android:textSize="30dp"
+            android:textSize="50dp"
             android:layout_alignBottom="@+id/tv_big_sec_unit"
             android:layout_toLeftOf="@+id/tv_big_sec_unit"
             android:layout_toStartOf="@+id/tv_big_sec_unit"/>
@@ -154,7 +159,7 @@
             android:layout_height="wrap_content"
             android:keepScreenOn="true"
             android:textColor="#fff"
-            android:textSize="30dp"
+            android:textSize="50dp"
             android:layout_alignBottom="@+id/tv_big_sec_unit"
             android:layout_toLeftOf="@+id/tv_big_sec_1"
             android:layout_toStartOf="@+id/tv_big_sec_1"
@@ -166,13 +171,14 @@
             android:layout_height="wrap_content"
             android:keepScreenOn="true"
             android:textColor="#fff"
-            android:textSize="30dp"
+            android:textSize="50dp"
             android:layout_alignBottom="@+id/tv_big_sec_unit"
             android:layout_toLeftOf="@+id/tv_big_sec_2"
             android:layout_toStartOf="@+id/tv_big_sec_2"
             android:text="@string/zero"
             android:visibility="gone" />
 
+        <!--13dp-->
         <TextView android:id="@+id/tv_small_yr"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

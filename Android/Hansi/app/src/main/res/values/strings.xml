@@ -10,7 +10,7 @@
 
     <string name="day_1">요</string>
     <string name="day_2">일</string>
-    <string name="popup_info">한글시계\n\n제작자: 곽도영(iOS), 오세훈(Android)\n\n도움: opklnm102(github) - 위젯제작\n\n문의사항은 "건의하기"를 이용해주세요.</string>
+    <string name="popup_info">한글시계\n\n제작자: 곽도영(iOS), 오세훈(Android)\n\n도움: opklnm102(github) - 위젯제작\n\n\t\tAdenda SDK - 잠금화면 SDK\n\n문의사항은 "건의하기"를 이용해주세요.</string>
 
     <string name="appwidget_text">한글시계</string>
     <string name="configure">Configure</string>
@@ -19,5 +19,9 @@
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_option">OptionActivity</string>
+    <string name="title_activity_font_selector">FontSelectorActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 
 </resources>

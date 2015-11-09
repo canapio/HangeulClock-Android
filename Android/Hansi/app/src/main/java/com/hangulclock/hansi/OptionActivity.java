@@ -1,5 +1,6 @@
 package com.hangulclock.hansi;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.app.Activity;
@@ -22,10 +23,23 @@ public class OptionActivity extends Activity {
         setContentView(R.layout.activity_option);
 
         final AdendaHansiCallback mAdendaCallback = new AdendaHansiCallback(this);
-        // Set Adenda button
-        AdendaButton button = (AdendaButton) findViewById(R.id.lock_on_button);
 
-        button.setAdendaCallback(mAdendaCallback);
+        // Set Adenda button
+        final AdendaButton adendaButton = (AdendaButton) findViewById(R.id.lock_on_button);
+
+        final Button fontButton = (Button) findViewById(R.id.btn_font_changer);
+        fontButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(OptionActivity.this, FontSelectorActivity.class);
+                startActivity(i);
+            }
+        });
+
+        // TODO: color selector not yet implemented
+        final Button colorButton = (Button) findViewById(R.id.btn_color_changer);
+
+        adendaButton.setAdendaCallback(mAdendaCallback);
 
         AdendaAgent.setEnableAds(this, false);
 

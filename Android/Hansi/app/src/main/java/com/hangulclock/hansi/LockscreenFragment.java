@@ -83,15 +83,21 @@ public class LockscreenFragment extends Fragment implements AdendaFragmentInterf
         //else
         //    view = inflater.inflate(R.layout.lockscreen_layout_h, container, false);
 
-        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
+        final Activity currActivity = getActivity();
+        currActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
 
         activityH = (FrameLayout) view.findViewById(R.id.fragmentlayout_h);
         activityV = (FrameLayout) view.findViewById(R.id.fragmentlayout_v);
 
-        final Typeface nanumGothic = Typeface.createFromAsset(getActivity().getAssets(), "fonts/NanumGothic.ttf");
-        final Typeface nanumGothicBold = Typeface.createFromAsset(getActivity().getAssets(), "fonts/NanumGothicBold.ttf");
-        final Typeface nanumGothicExtraBold = Typeface.createFromAsset(getActivity().getAssets(), "fonts/NanumGothicExtraBold.ttf");
-        final Typeface nanumGothicLight = Typeface.createFromAsset(getActivity().getAssets(), "fonts/NanumGothicLight.ttf");
+//        final Typeface nanumGothic = Typeface.createFromAsset(getActivity().getAssets(), "fonts/NanumGothic.ttf");
+//        final Typeface nanumGothicBold = Typeface.createFromAsset(getActivity().getAssets(), "fonts/NanumGothicBold.ttf");
+//        final Typeface nanumGothicExtraBold = Typeface.createFromAsset(getActivity().getAssets(), "fonts/NanumGothicExtraBold.ttf");
+//        final Typeface nanumGothicLight = Typeface.createFromAsset(getActivity().getAssets(), "fonts/NanumGothicLight.ttf");
+
+        final Typeface nanumGothic = Typeface.createFromAsset(currActivity.getAssets(), "fonts/yanoljaRegular.otf");
+        final Typeface nanumGothicBold = Typeface.createFromAsset(currActivity.getAssets(), "fonts/yanoljaBold.otf");
+        final Typeface nanumGothicExtraBold = Typeface.createFromAsset(currActivity.getAssets(), "fonts/yanoljaBold.otf");
+        final Typeface nanumGothicLight = Typeface.createFromAsset(currActivity.getAssets(), "fonts/yanoljaRegular.otf");
 
         // 최상단 년월일
         tvTop = (TextView) view.findViewById(R.id.frag_tv_top_v);
@@ -135,8 +141,8 @@ public class LockscreenFragment extends Fragment implements AdendaFragmentInterf
         *   초 : Normal
         */
         tvTop.setTypeface(nanumGothic);
-        tvBigTime.setTypeface(nanumGothicExtraBold);
-        tvBigHour.setTypeface(nanumGothicExtraBold);
+        tvBigTime.setTypeface(nanumGothicExtraBold,Typeface.BOLD);
+        tvBigHour.setTypeface(nanumGothicExtraBold,Typeface.BOLD);
         tvAMPMUnit.setTypeface(nanumGothicBold);
         tvAMPM.setTypeface(nanumGothicBold);
         tvBigMinUnit.setTypeface(nanumGothicLight);
