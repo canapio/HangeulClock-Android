@@ -1,12 +1,12 @@
 package com.hangulclock.hansi;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
-import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -21,10 +21,12 @@ public class FontSelectorActivity extends FragmentActivity {
     public final static float BIG_SCALE = 1.0f;
     public final static float SMALL_SCALE = 1.0f;
     public final static float DIFF_SCALE = BIG_SCALE - SMALL_SCALE;
+    private final static String PREF_FONT = "FONTPREF";
 
     public MyPagerAdapter adapter;
     public ViewPager pager;
     private Button confirmButton;
+
     private SharedPreferences mSharedPreferences;
     private SharedPreferences.Editor mEditor;
 
@@ -37,7 +39,7 @@ public class FontSelectorActivity extends FragmentActivity {
 
         setContentView(R.layout.activity_font_selector);
 
-        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mSharedPreferences = getSharedPreferences(PREF_FONT, Context.MODE_PRIVATE);
         mEditor = mSharedPreferences.edit();
 
         pager = (ViewPager) findViewById(R.id.font_selector_pager);
@@ -65,7 +67,8 @@ public class FontSelectorActivity extends FragmentActivity {
                     case 0: mEditor.putString("font", "yanolja"); FontChanger.setFont(getApplicationContext(), "yanolja"); break;
                     case 1: mEditor.putString("font", "nanumgothic"); FontChanger.setFont(getApplicationContext(), "nanumgothic"); break;
                 }
-                mEditor.commit();
+                mEditor.apply();
+                Log.d("FontSelectorActivity", " Current font in preference -- " + mSharedPreferences.getString("font", "nanumgothic"));
                 finish();
             }
         });

@@ -16,6 +16,23 @@
         android:textSize="15sp"
         android:text="@string/popup_info"/>
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/adenda_logo"/>
+
+    <TextView
+        android:id="@+id/tv_popup_info_cont"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5sp"
+        android:textColor="#fff"
+        android:textSize="15sp"
+        android:text="@string/popup_info_cont"/>
+
     <Button
         android:id="@+id/btn_close_popup"
         android:layout_width="match_parent"

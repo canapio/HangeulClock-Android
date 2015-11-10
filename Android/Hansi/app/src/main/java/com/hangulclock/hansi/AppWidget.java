@@ -19,11 +19,15 @@ import android.widget.RemoteViews;
 public class AppWidget extends AppWidgetProvider {
 
     public static final String TAG = "AppWidget";
+    private final static String PREF_FONT = "FONTPREF";
 
-    Typeface nanumGothic;
-    Typeface nanumGothicBold;
-    Typeface nanumGothicExtraBold;
-    Typeface nanumGothicLight;
+    static String font;
+
+    Typeface[] typefaces;
+    Typeface typeface_regular;
+    Typeface typeface_bold;
+    Typeface typeface_extraBold;
+    Typeface typeface_light;
 
     Context mContext;
 
@@ -77,10 +81,15 @@ public class AppWidget extends AppWidgetProvider {
 
         setClockReceiver(context);
 
-        nanumGothic = Typeface.createFromAsset(context.getApplicationContext().getAssets(), "fonts/NanumGothic.ttf");
-        nanumGothicBold = Typeface.createFromAsset(context.getApplicationContext().getAssets(), "fonts/NanumGothicBold.ttf");
-        nanumGothicExtraBold = Typeface.createFromAsset(context.getApplicationContext().getAssets(), "fonts/NanumGothicExtraBold.ttf");
-        nanumGothicLight = Typeface.createFromAsset(context.getApplicationContext().getAssets(), "fonts/NanumGothicLight.ttf");
+        font = context.getSharedPreferences(PREF_FONT, Context.MODE_PRIVATE).getString("font","nanumgothic");
+
+        FontChanger.setFont(context, font);
+
+        typefaces = FontChanger.getTypefaces();
+        typeface_regular = typefaces[0];
+        typeface_bold = typefaces[1];
+        typeface_extraBold = typefaces[2];
+        typeface_light = typefaces[3];
 
         Intent intent = new Intent();
         intent.setClass(context, ClockService.class);
@@ -177,7 +186,7 @@ public class AppWidget extends AppWidgetProvider {
         RemoteViews views = new RemoteViews(mContext.getPackageName(), R.layout.app_widget);
 
         // 최상단 년월일
-        views.setImageViewBitmap(R.id.iv_top_v, buildUpdate((int)ViewUtils.dpToPixel(mContext, 450), (int)ViewUtils.dpToPixel(mContext, 20), addSpace("  " + currYr + "년 " + currMon + "월 " + currDay + "일 " + currDayOfWeek + "요일  "), nanumGothic, ViewUtils.dpToPixel(mContext, 15)));
+        views.setImageViewBitmap(R.id.iv_top_v, buildUpdate((int)ViewUtils.dpToPixel(mContext, 450), (int)ViewUtils.dpToPixel(mContext, 20), addSpace("  " + currYr + "년 " + currMon + "월 " + currDay + "일 " + currDayOfWeek + "요일  "), typeface_regular, ViewUtils.dpToPixel(mContext, 15)));
 
         length = currHour.length();
         Log.d(TAG, " "+length );
@@ -191,12 +200,12 @@ public class AppWidget extends AppWidgetProvider {
             textWidth = 240;
         }
         // 상단 큰 시간
-        views.setImageViewBitmap(R.id.iv_big_time, buildUpdate((int)ViewUtils.dpToPixel(mContext, textWidth), (int)ViewUtils.dpToPixel(mContext, 80), currHour, nanumGothicExtraBold, ViewUtils.dpToPixel(mContext, 70)));
-        views.setImageViewBitmap(R.id.iv_big_hour, buildUpdate((int)ViewUtils.dpToPixel(mContext, 70), (int)ViewUtils.dpToPixel(mContext, 80), "시", nanumGothicExtraBold, ViewUtils.dpToPixel(mContext, 70)));
+        views.setImageViewBitmap(R.id.iv_big_time, buildUpdate((int)ViewUtils.dpToPixel(mContext, textWidth), (int)ViewUtils.dpToPixel(mContext, 80), currHour, typeface_extraBold, ViewUtils.dpToPixel(mContext, 70)));
+        views.setImageViewBitmap(R.id.iv_big_hour, buildUpdate((int)ViewUtils.dpToPixel(mContext, 70), (int)ViewUtils.dpToPixel(mContext, 80), "시", typeface_extraBold, ViewUtils.dpToPixel(mContext, 70)));
 
         // 상단 큰 오전/오후
-        views.setImageViewBitmap(R.id.iv_ampm_unit, buildUpdate((int)ViewUtils.dpToPixel(mContext, 20), (int)ViewUtils.dpToPixel(mContext, 30), "오", nanumGothicBold, ViewUtils.dpToPixel(mContext, 20)));
-        views.setImageViewBitmap(R.id.iv_ampm, buildUpdate((int)ViewUtils.dpToPixel(mContext, 20), (int)ViewUtils.dpToPixel(mContext, 30), currAMPM, nanumGothicBold, ViewUtils.dpToPixel(mContext, 20)));
+        views.setImageViewBitmap(R.id.iv_ampm_unit, buildUpdate((int)ViewUtils.dpToPixel(mContext, 20), (int)ViewUtils.dpToPixel(mContext, 30), "오", typeface_bold, ViewUtils.dpToPixel(mContext, 20)));
+        views.setImageViewBitmap(R.id.iv_ampm, buildUpdate((int)ViewUtils.dpToPixel(mContext, 20), (int)ViewUtils.dpToPixel(mContext, 30), currAMPM, typeface_bold, ViewUtils.dpToPixel(mContext, 20)));
 
         length = currMin.length();
         Log.d(TAG, " "+length );
@@ -210,10 +219,10 @@ public class AppWidget extends AppWidgetProvider {
             textWidth = 140;
         }
         // 상단 큰 분
-        views.setImageViewBitmap(R.id.iv_big_min_unit, buildUpdate((int)ViewUtils.dpToPixel(mContext, 50), (int)ViewUtils.dpToPixel(mContext, 60), "분", nanumGothicLight, ViewUtils.dpToPixel(mContext, 40)));
-        views.setImageViewBitmap(R.id.iv_big_min_1, buildUpdate((int)ViewUtils.dpToPixel(mContext, textWidth), (int)ViewUtils.dpToPixel(mContext, 60), currMin, nanumGothicLight, ViewUtils.dpToPixel(mContext, 40)));
-        views.setImageViewBitmap(R.id.iv_big_min_2, buildUpdate((int)ViewUtils.dpToPixel(mContext, 50), (int)ViewUtils.dpToPixel(mContext, 60), "영", nanumGothicLight, ViewUtils.dpToPixel(mContext, 40)));
-        views.setImageViewBitmap(R.id.iv_big_min_3, buildUpdate((int)ViewUtils.dpToPixel(mContext, 50), (int)ViewUtils.dpToPixel(mContext, 60) , "영", nanumGothicLight, ViewUtils.dpToPixel(mContext, 40)));
+        views.setImageViewBitmap(R.id.iv_big_min_unit, buildUpdate((int)ViewUtils.dpToPixel(mContext, 50), (int)ViewUtils.dpToPixel(mContext, 60), "분", typeface_light, ViewUtils.dpToPixel(mContext, 40)));
+        views.setImageViewBitmap(R.id.iv_big_min_1, buildUpdate((int)ViewUtils.dpToPixel(mContext, textWidth), (int)ViewUtils.dpToPixel(mContext, 60), currMin, typeface_light, ViewUtils.dpToPixel(mContext, 40)));
+        views.setImageViewBitmap(R.id.iv_big_min_2, buildUpdate((int)ViewUtils.dpToPixel(mContext, 50), (int)ViewUtils.dpToPixel(mContext, 60), "영", typeface_light, ViewUtils.dpToPixel(mContext, 40)));
+        views.setImageViewBitmap(R.id.iv_big_min_3, buildUpdate((int)ViewUtils.dpToPixel(mContext, 50), (int)ViewUtils.dpToPixel(mContext, 60) , "영", typeface_light, ViewUtils.dpToPixel(mContext, 40)));
 
         return views;
     }

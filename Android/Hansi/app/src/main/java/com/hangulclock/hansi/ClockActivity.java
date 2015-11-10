@@ -48,6 +48,8 @@ public class ClockActivity extends Activity implements
     private static final String APP_LINK = "market://details?id=com.hangulclock.hansi";
     private static final String APP_URL_DEFAULT = "http://play.google.com/store/apps/details?id=com.hangulclock.hansi";
     private static final String APP_URL_KOR = "http://play.google.com/store/apps/details?id=com.hangulclock.hansi&hl=ko";
+    private final static String PREF_FONT = "FONTPREF";
+
     KoreanTranslator kt;
 
     String[] currTimeStr;
@@ -211,7 +213,7 @@ public class ClockActivity extends Activity implements
         tvSmallDayOfWeek = (TextView) findViewById(R.id.tv_small_day_of_week);
         tvSmallAMPM = (TextView) findViewById(R.id.tv_small_ampm);
 
-        FontChanger.setFont(this, PreferenceManager.getDefaultSharedPreferences(this).getString("font","nanumgothic"));
+        FontChanger.setFont(this, getSharedPreferences(PREF_FONT, Context.MODE_PRIVATE).getString("font", "nanumgothic"));
         setFontStyles();
 
         kt = new KoreanTranslator();
@@ -516,7 +518,7 @@ public class ClockActivity extends Activity implements
     };
 
     private void setFontStyles() {
-        String font = PreferenceManager.getDefaultSharedPreferences(this).getString("font","nanumgothic");
+        String font = getSharedPreferences(PREF_FONT, Context.MODE_PRIVATE).getString("font","nanumgothic");
         typefaces = FontChanger.getTypefaces();
         typeface_regular = typefaces[0];
         typeface_bold = typefaces[1];

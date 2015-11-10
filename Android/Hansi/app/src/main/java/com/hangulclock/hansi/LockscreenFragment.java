@@ -14,12 +14,12 @@ import android.os.PowerManager;
 import android.text.format.Time;
 import android.util.Log;
 import android.util.Pair;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
+
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -30,7 +30,8 @@ import java.util.Locale;
 import sdk.adenda.lockscreen.fragments.AdendaFragmentInterface;
 
 public class LockscreenFragment extends Fragment implements AdendaFragmentInterface {
-    private static final String TAG = ClockActivity.class.getSimpleName();
+    private static final String TAG = LockscreenFragment.class.getSimpleName();
+    private final static String PREF_FONT = "FONTPREF";
 
     KoreanTranslator kt;
 
@@ -47,6 +48,38 @@ public class LockscreenFragment extends Fragment implements AdendaFragmentInterf
     int currOrientation;
 
     TextView tvTop;
+
+    // 상단 큰 시간
+    TextView tvBigTime;
+    TextView tvBigHour;
+
+    // 상단 큰 오전/오후
+    TextView tvAMPMUnit;
+    TextView tvAMPM;
+
+    // 상단 큰 분
+    TextView tvBigMinUnit;
+    TextView tvBigMin1;
+    TextView tvBigMin2;
+    TextView tvBigMin3;
+
+    // 상단 큰 초
+    TextView tvBigSecUnit;
+    TextView tvBigSec1;
+    TextView tvBigSec2;
+    TextView tvBigSec3;
+
+    // 하단 작은 text view
+    TextView tvSmallYr;
+    TextView tvSmallDate;
+    TextView tvSmallDayOfWeek;
+    TextView tvSmallAMPM;
+
+    Typeface[] typefaces;
+    Typeface typeface_regular;
+    Typeface typeface_bold;
+    Typeface typeface_extraBold;
+    Typeface typeface_light;
 
     boolean isHourChanged = false;
     boolean isMinChanged = false;
@@ -75,6 +108,7 @@ public class LockscreenFragment extends Fragment implements AdendaFragmentInterf
                 currOrientation = 1;
         }*/
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = null;
@@ -89,16 +123,6 @@ public class LockscreenFragment extends Fragment implements AdendaFragmentInterf
         activityH = (FrameLayout) view.findViewById(R.id.fragmentlayout_h);
         activityV = (FrameLayout) view.findViewById(R.id.fragmentlayout_v);
 
-//        final Typeface nanumGothic = Typeface.createFromAsset(getActivity().getAssets(), "fonts/NanumGothic.ttf");
-//        final Typeface nanumGothicBold = Typeface.createFromAsset(getActivity().getAssets(), "fonts/NanumGothicBold.ttf");
-//        final Typeface nanumGothicExtraBold = Typeface.createFromAsset(getActivity().getAssets(), "fonts/NanumGothicExtraBold.ttf");
-//        final Typeface nanumGothicLight = Typeface.createFromAsset(getActivity().getAssets(), "fonts/NanumGothicLight.ttf");
-
-        final Typeface nanumGothic = Typeface.createFromAsset(currActivity.getAssets(), "fonts/yanoljaRegular.otf");
-        final Typeface nanumGothicBold = Typeface.createFromAsset(currActivity.getAssets(), "fonts/yanoljaBold.otf");
-        final Typeface nanumGothicExtraBold = Typeface.createFromAsset(currActivity.getAssets(), "fonts/yanoljaBold.otf");
-        final Typeface nanumGothicLight = Typeface.createFromAsset(currActivity.getAssets(), "fonts/yanoljaRegular.otf");
-
         // 최상단 년월일
         tvTop = (TextView) view.findViewById(R.id.frag_tv_top_v);
 
@@ -109,54 +133,32 @@ public class LockscreenFragment extends Fragment implements AdendaFragmentInterf
         }*/
 
         // 상단 큰 시간
-        final TextView tvBigTime = (TextView) view.findViewById(R.id.frag_tv_big_time);
-        final TextView tvBigHour = (TextView) view.findViewById(R.id.frag_tv_big_hour);
+        tvBigTime = (TextView) view.findViewById(R.id.frag_tv_big_time);
+        tvBigHour = (TextView) view.findViewById(R.id.frag_tv_big_hour);
 
         // 상단 큰 오전/오후
-        final TextView tvAMPMUnit = (TextView) view.findViewById(R.id.frag_tv_ampm_unit);
-        final TextView tvAMPM = (TextView) view.findViewById(R.id.frag_tv_ampm);
+        tvAMPMUnit = (TextView) view.findViewById(R.id.frag_tv_ampm_unit);
+        tvAMPM = (TextView) view.findViewById(R.id.frag_tv_ampm);
 
         // 상단 큰 분
-        final TextView tvBigMinUnit = (TextView) view.findViewById(R.id.frag_tv_big_min_unit);
-        final TextView tvBigMin1 = (TextView) view.findViewById(R.id.frag_tv_big_min_1);
-        final TextView tvBigMin2 = (TextView) view.findViewById(R.id.frag_tv_big_min_2);
-        final TextView tvBigMin3 = (TextView) view.findViewById(R.id.frag_tv_big_min_3);
+        tvBigMinUnit = (TextView) view.findViewById(R.id.frag_tv_big_min_unit);
+        tvBigMin1 = (TextView) view.findViewById(R.id.frag_tv_big_min_1);
+        tvBigMin2 = (TextView) view.findViewById(R.id.frag_tv_big_min_2);
+        tvBigMin3 = (TextView) view.findViewById(R.id.frag_tv_big_min_3);
 
         // 상단 큰 초
-        final TextView tvBigSecUnit = (TextView) view.findViewById(R.id.frag_tv_big_sec_unit);
-        final TextView tvBigSec1 = (TextView) view.findViewById(R.id.frag_tv_big_sec_1);
-        final TextView tvBigSec2 = (TextView) view.findViewById(R.id.frag_tv_big_sec_2);
-        final TextView tvBigSec3 = (TextView) view.findViewById(R.id.frag_tv_big_sec_3);
+        tvBigSecUnit = (TextView) view.findViewById(R.id.frag_tv_big_sec_unit);
+        tvBigSec1 = (TextView) view.findViewById(R.id.frag_tv_big_sec_1);
+        tvBigSec2 = (TextView) view.findViewById(R.id.frag_tv_big_sec_2);
+        tvBigSec3 = (TextView) view.findViewById(R.id.frag_tv_big_sec_3);
 
         // 하단 작은 text view
-        final TextView tvSmallYr = (TextView) view.findViewById(R.id.frag_tv_small_yr);
-        final TextView tvSmallDate = (TextView) view.findViewById(R.id.frag_tv_small_date);
-        final TextView tvSmallDayOfWeek = (TextView) view.findViewById(R.id.frag_tv_small_day_of_week);
-        final TextView tvSmallAMPM = (TextView) view.findViewById(R.id.frag_tv_small_ampm);
+        tvSmallYr = (TextView) view.findViewById(R.id.frag_tv_small_yr);
+        tvSmallDate = (TextView) view.findViewById(R.id.frag_tv_small_date);
+        tvSmallDayOfWeek = (TextView) view.findViewById(R.id.frag_tv_small_day_of_week);
+        tvSmallAMPM = (TextView) view.findViewById(R.id.frag_tv_small_ampm);
 
-       /*
-        *   시간 : ExtraBold
-        *   오후 : Bold
-        *   분 : Light
-        *   초 : Normal
-        */
-        tvTop.setTypeface(nanumGothic);
-        tvBigTime.setTypeface(nanumGothicExtraBold,Typeface.BOLD);
-        tvBigHour.setTypeface(nanumGothicExtraBold,Typeface.BOLD);
-        tvAMPMUnit.setTypeface(nanumGothicBold);
-        tvAMPM.setTypeface(nanumGothicBold);
-        tvBigMinUnit.setTypeface(nanumGothicLight);
-        tvBigMin1.setTypeface(nanumGothicLight);
-        tvBigMin2.setTypeface(nanumGothicLight);
-        tvBigMin3.setTypeface(nanumGothicLight);
-        tvBigSecUnit.setTypeface(nanumGothic);
-        tvBigSec1.setTypeface(nanumGothic);
-        tvBigSec2.setTypeface(nanumGothic);
-        tvBigSec3.setTypeface(nanumGothic);
-        tvSmallYr.setTypeface(nanumGothic);
-        tvSmallDate.setTypeface(nanumGothic);
-        tvSmallDayOfWeek.setTypeface(nanumGothic);
-        tvSmallAMPM.setTypeface(nanumGothic);
+        setFontStyles(view.getContext());
 
         kt = new KoreanTranslator();
 
@@ -274,6 +276,12 @@ public class LockscreenFragment extends Fragment implements AdendaFragmentInterf
         return view;
     }
 
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        setFontStyles();
+//    }
+
     public static int getScreenOrientation(Activity activity) {
         int rotation = activity.getWindowManager().getDefaultDisplay().getRotation();
         int orientation = activity.getResources().getConfiguration().orientation;
@@ -330,6 +338,7 @@ public class LockscreenFragment extends Fragment implements AdendaFragmentInterf
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
                 mScreenOn = false;
+                setFontStyles(context);
             }
             else if (intent.getAction().equals(Intent.ACTION_SCREEN_ON)) {
                 mScreenOn = true;
@@ -365,5 +374,87 @@ public class LockscreenFragment extends Fragment implements AdendaFragmentInterf
 
         // Unregister receiver to avoid memory leaks!
         getActivity().unregisterReceiver(mReceiver);
+    }
+
+    private void setFontStyles(Context con) {
+        Log.d(TAG, " setFontStyles from lockscreen called!!!!!!!");
+        String font = con.getSharedPreferences(PREF_FONT, Context.MODE_PRIVATE).getString("font","nanumgothic");
+        FontChanger.setFont(con, font);
+        Log.d(TAG, " CURRENT FONT: " + font);
+
+        typefaces = FontChanger.getTypefaces();
+        typeface_regular = typefaces[0];
+        typeface_bold = typefaces[1];
+        typeface_extraBold = typefaces[2];
+        typeface_light = typefaces[3];
+
+        /*
+        *   시간 : ExtraBold
+        *   오후 : Bold
+        *   분 : Light
+        *   초 : Normal
+        */
+        tvTop.setTypeface(typeface_regular);
+        if (font.equals("nanumgothic")) {
+            tvBigTime.setTypeface(typeface_extraBold);
+            tvBigHour.setTypeface(typeface_extraBold);
+        } else {
+            tvBigTime.setTypeface(typeface_extraBold, Typeface.BOLD);
+            tvBigHour.setTypeface(typeface_extraBold, Typeface.BOLD);
+        }
+        tvAMPMUnit.setTypeface(typeface_bold);
+        tvAMPM.setTypeface(typeface_bold);
+        tvBigMinUnit.setTypeface(typeface_light);
+        tvBigMin1.setTypeface(typeface_light);
+        tvBigMin2.setTypeface(typeface_light);
+        tvBigMin3.setTypeface(typeface_light);
+        tvBigSecUnit.setTypeface(typeface_regular);
+        tvBigSec1.setTypeface(typeface_regular);
+        tvBigSec2.setTypeface(typeface_regular);
+        tvBigSec3.setTypeface(typeface_regular);
+        tvSmallYr.setTypeface(typeface_regular);
+        tvSmallDate.setTypeface(typeface_regular);
+        tvSmallDayOfWeek.setTypeface(typeface_regular);
+        tvSmallAMPM.setTypeface(typeface_regular);
+
+        // Set sizes
+        if (font.equals("nanumgothic")) {
+            tvTop.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 11);
+            tvBigTime.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 100);
+            tvBigHour.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 100);
+            tvAMPMUnit.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 35);
+            tvAMPM.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 35);
+            tvBigMinUnit.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 70);
+            tvBigMin1.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 70);
+            tvBigMin2.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 70);
+            tvBigMin3.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 70);
+            tvBigSecUnit.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 30);
+            tvBigSec1.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 30);
+            tvBigSec2.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 30);
+            tvBigSec3.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 30);
+            tvSmallYr.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 13);
+            tvSmallDate.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 13);
+            tvSmallDayOfWeek.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 13);
+            tvSmallAMPM.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 13);
+
+        } else {
+            tvTop.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
+            tvBigTime.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 120);
+            tvBigHour.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 120);
+            tvAMPMUnit.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 45);
+            tvAMPM.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 45);
+            tvBigMinUnit.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 90);
+            tvBigMin1.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 90);
+            tvBigMin2.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 90);
+            tvBigMin3.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 90);
+            tvBigSecUnit.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 50);
+            tvBigSec1.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 50);
+            tvBigSec2.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 50);
+            tvBigSec3.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 50);
+            tvSmallYr.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 13);
+            tvSmallDate.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 13);
+            tvSmallDayOfWeek.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 13);
+            tvSmallAMPM.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 13);
+        }
     }
 }
