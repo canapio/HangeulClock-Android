@@ -378,7 +378,7 @@ public class LockscreenFragment extends Fragment implements AdendaFragmentInterf
 
     private void setFontStyles(Context con) {
         Log.d(TAG, " setFontStyles from lockscreen called!!!!!!!");
-        String font = con.getSharedPreferences(PREF_FONT, Context.MODE_PRIVATE).getString("font","nanumgothic");
+        String font = MultiprocessPreferences.getDefaultSharedPreferences(con).getString("font","nanumgothic");
         FontChanger.setFont(con, font);
         Log.d(TAG, " CURRENT FONT: " + font);
 

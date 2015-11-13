@@ -1,7 +1,6 @@
 package com.hangulclock.hansi;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
@@ -11,6 +10,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import com.hangulclock.hansi.MultiprocessPreferences.MultiprocessSharedPreferences;
 
 
 public class FontSelectorActivity extends FragmentActivity {
@@ -21,14 +21,13 @@ public class FontSelectorActivity extends FragmentActivity {
     public final static float BIG_SCALE = 1.0f;
     public final static float SMALL_SCALE = 1.0f;
     public final static float DIFF_SCALE = BIG_SCALE - SMALL_SCALE;
-    private final static String PREF_FONT = "FONTPREF";
 
     public MyPagerAdapter adapter;
     public ViewPager pager;
     private Button confirmButton;
 
-    private SharedPreferences mSharedPreferences;
-    private SharedPreferences.Editor mEditor;
+    private MultiprocessSharedPreferences mSharedPreferences;
+    private MultiprocessPreferences.Editor mEditor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +38,7 @@ public class FontSelectorActivity extends FragmentActivity {
 
         setContentView(R.layout.activity_font_selector);
 
-        mSharedPreferences = getSharedPreferences(PREF_FONT, Context.MODE_PRIVATE);
+        mSharedPreferences = MultiprocessPreferences.getDefaultSharedPreferences(this);
         mEditor = mSharedPreferences.edit();
 
         pager = (ViewPager) findViewById(R.id.font_selector_pager);

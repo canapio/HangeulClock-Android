@@ -55,6 +55,16 @@
             android:name=".FontSelectorActivity"
             android:label="@string/title_activity_font_selector" >
         </activity>
+
+        <provider
+            android:name=".MultiprocessPreferences"
+            android:authorities="@string/multiprocess_preferences_authority"
+            android:exported="false" />
+
+        <activity
+            android:name=".ColorActivity"
+            android:label="@string/title_activity_color" >
+        </activity>
     </application>
 
 </manifest>

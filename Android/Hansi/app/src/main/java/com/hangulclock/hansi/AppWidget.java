@@ -81,7 +81,7 @@ public class AppWidget extends AppWidgetProvider {
 
         setClockReceiver(context);
 
-        font = context.getSharedPreferences(PREF_FONT, Context.MODE_PRIVATE).getString("font","nanumgothic");
+        font = MultiprocessPreferences.getDefaultSharedPreferences(context).getString("font","nanumgothic");
 
         FontChanger.setFont(context, font);
 
@@ -218,6 +218,7 @@ public class AppWidget extends AppWidgetProvider {
         }else if(length == 4){
             textWidth = 140;
         }
+
         // 상단 큰 분
         views.setImageViewBitmap(R.id.iv_big_min_unit, buildUpdate((int)ViewUtils.dpToPixel(mContext, 50), (int)ViewUtils.dpToPixel(mContext, 60), "분", typeface_light, ViewUtils.dpToPixel(mContext, 40)));
         views.setImageViewBitmap(R.id.iv_big_min_1, buildUpdate((int)ViewUtils.dpToPixel(mContext, textWidth), (int)ViewUtils.dpToPixel(mContext, 60), currMin, typeface_light, ViewUtils.dpToPixel(mContext, 40)));

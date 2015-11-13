@@ -12,12 +12,10 @@ import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.view.GestureDetectorCompat;
 import android.text.format.Time;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.util.Size;
 import android.util.TypedValue;
 import android.view.GestureDetector;
 import android.view.Gravity;
@@ -37,10 +35,6 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
-import sdk.adenda.lockscreen.AdendaAgent;
-import sdk.adenda.widget.AdendaButton;
-import sdk.adenda.widget.AdendaButtonCallback;
-
 public class ClockActivity extends Activity implements
         GestureDetector.OnGestureListener {
     private static final String TAG = ClockActivity.class.getSimpleName();
@@ -48,7 +42,6 @@ public class ClockActivity extends Activity implements
     private static final String APP_LINK = "market://details?id=com.hangulclock.hansi";
     private static final String APP_URL_DEFAULT = "http://play.google.com/store/apps/details?id=com.hangulclock.hansi";
     private static final String APP_URL_KOR = "http://play.google.com/store/apps/details?id=com.hangulclock.hansi&hl=ko";
-    private final static String PREF_FONT = "FONTPREF";
 
     KoreanTranslator kt;
 
@@ -213,7 +206,7 @@ public class ClockActivity extends Activity implements
         tvSmallDayOfWeek = (TextView) findViewById(R.id.tv_small_day_of_week);
         tvSmallAMPM = (TextView) findViewById(R.id.tv_small_ampm);
 
-        FontChanger.setFont(this, getSharedPreferences(PREF_FONT, Context.MODE_PRIVATE).getString("font", "nanumgothic"));
+        FontChanger.setFont(this, MultiprocessPreferences.getDefaultSharedPreferences(getApplicationContext()).getString("font", "nanumgothic"));
         setFontStyles();
 
         kt = new KoreanTranslator();
@@ -518,7 +511,7 @@ public class ClockActivity extends Activity implements
     };
 
     private void setFontStyles() {
-        String font = getSharedPreferences(PREF_FONT, Context.MODE_PRIVATE).getString("font","nanumgothic");
+        String font = MultiprocessPreferences.getDefaultSharedPreferences(getApplicationContext()).getString("font","nanumgothic");
         typefaces = FontChanger.getTypefaces();
         typeface_regular = typefaces[0];
         typeface_bold = typefaces[1];

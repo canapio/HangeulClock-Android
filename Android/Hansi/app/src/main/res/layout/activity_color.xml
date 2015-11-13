@@ -1,0 +1,255 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/colorlayout_v"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ColorActivity"
+    android:keepScreenOn="true"
+    android:background="@drawable/launch_image_portrait">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--11dp-->
+        <TextView android:id="@+id/tv_top_v"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:keepScreenOn="true"
+            android:textColor="#fff"
+            android:textSize="11dp"
+            android:gravity="center"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
+            android:maxLines="1"
+            android:text="이   천   십   오   년      십   일   월      이   십   오   일      수   요   일"
+            android:background="@drawable/text_border"/>
+
+        <RelativeLayout
+            android:id="@+id/rl_top_ampm_hour"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_top_v">
+
+            <!--100dp-->
+            <TextView android:id="@+id/tv_big_hour"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:keepScreenOn="true"
+                android:textColor="#fff"
+                android:textSize="100dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="10dp"
+                android:text="@string/big_hour"
+                android:background="@drawable/text_border"/>
+
+            <TextView android:id="@+id/tv_big_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:keepScreenOn="true"
+                android:textColor="#fff"
+                android:textSize="100dp"
+                android:layout_alignBottom="@+id/tv_big_hour"
+                android:layout_toLeftOf="@+id/tv_big_hour"
+                android:layout_toStartOf="@+id/tv_big_hour"
+                android:text="여덟"
+                android:background="@drawable/text_border"/>
+
+            <!--35dp-->
+            <TextView android:id="@+id/tv_ampm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:keepScreenOn="true"
+                android:textColor="#fff"
+                android:textSize="35dp"
+                android:layout_alignBottom="@+id/tv_big_hour"
+                android:layout_toLeftOf="@+id/tv_big_time"
+                android:layout_toStartOf="@+id/tv_big_time"
+                android:text="후"
+                android:background="@drawable/text_border"/>
+
+            <TextView android:id="@+id/tv_ampm_unit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:keepScreenOn="true"
+                android:textColor="#fff"
+                android:textSize="35dp"
+                android:layout_alignBottom="@+id/tv_big_hour"
+                android:layout_toLeftOf="@+id/tv_ampm"
+                android:layout_toStartOf="@+id/tv_ampm"
+                android:text="@string/big_ampm_unit"
+                android:background="@drawable/text_border"/>
+
+        </RelativeLayout>
+
+        <!--70dp-->
+        <TextView android:id="@+id/tv_big_min_unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:keepScreenOn="true"
+            android:textColor="#fff"
+            android:textSize="70dp"
+            android:layout_below="@+id/rl_top_ampm_hour"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="@string/big_minute"
+            android:background="@drawable/text_border"/>
+
+        <TextView android:id="@+id/tv_big_min_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:keepScreenOn="true"
+            android:textColor="#fff"
+            android:textSize="70dp"
+            android:layout_alignBottom="@+id/tv_big_min_unit"
+            android:layout_toLeftOf="@+id/tv_big_min_unit"
+            android:layout_toStartOf="@+id/tv_big_min_unit"
+            android:text="이십오"
+            android:background="@drawable/text_border"/>
+
+        <TextView android:id="@+id/tv_big_min_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:keepScreenOn="true"
+            android:textColor="#fff"
+            android:textSize="70dp"
+            android:layout_alignBottom="@+id/tv_big_min_unit"
+            android:layout_toLeftOf="@+id/tv_big_min_1"
+            android:layout_toStartOf="@+id/tv_big_min_1"
+            android:text="@string/zero"
+            android:visibility="gone" />
+
+        <TextView android:id="@+id/tv_big_min_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:keepScreenOn="true"
+            android:textColor="#fff"
+            android:textSize="70dp"
+            android:layout_alignBottom="@+id/tv_big_min_unit"
+            android:layout_toLeftOf="@+id/tv_big_min_2"
+            android:layout_toStartOf="@+id/tv_big_min_2"
+            android:text="@string/zero"
+            android:visibility="gone" />
+
+        <!--30dp-->
+        <TextView android:id="@+id/tv_big_sec_unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:keepScreenOn="true"
+            android:textColor="#fff"
+            android:textSize="30dp"
+            android:layout_below="@+id/tv_big_min_1"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="@string/big_second"
+            android:background="@drawable/text_border"/>
+
+        <TextView android:id="@+id/tv_big_sec_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:keepScreenOn="true"
+            android:textColor="#fff"
+            android:textSize="30dp"
+            android:layout_alignBottom="@+id/tv_big_sec_unit"
+            android:layout_toLeftOf="@+id/tv_big_sec_unit"
+            android:layout_toStartOf="@+id/tv_big_sec_unit"
+            android:text="삼십칠"
+            android:background="@drawable/text_border"/>
+
+        <TextView android:id="@+id/tv_big_sec_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:keepScreenOn="true"
+            android:textColor="#fff"
+            android:textSize="30dp"
+            android:layout_alignBottom="@+id/tv_big_sec_unit"
+            android:layout_toLeftOf="@+id/tv_big_sec_1"
+            android:layout_toStartOf="@+id/tv_big_sec_1"
+            android:text="@string/zero"
+            android:visibility="gone" />
+
+        <TextView android:id="@+id/tv_big_sec_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:keepScreenOn="true"
+            android:textColor="#fff"
+            android:textSize="50dp"
+            android:layout_alignBottom="@+id/tv_big_sec_unit"
+            android:layout_toLeftOf="@+id/tv_big_sec_2"
+            android:layout_toStartOf="@+id/tv_big_sec_2"
+            android:text="@string/zero"
+            android:visibility="gone" />
+
+        <!--13dp-->
+        <TextView android:id="@+id/tv_small_yr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:keepScreenOn="true"
+            android:textColor="#9fff"
+            android:textSize="13dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="30dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="ㅇ ㅣ ㅊ ㅓ ㄴ ㅅ ㅣ ㅂ ㅇ ㅗ ㄴ ㅕ ㄴ"
+            android:background="@drawable/text_border"/>
+
+        <TextView android:id="@+id/tv_small_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:keepScreenOn="true"
+            android:textColor="#9fff"
+            android:textSize="13dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_above="@+id/tv_small_yr"
+            android:layout_marginBottom="2dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="ㅅ ㅣ ㅂ ㅇ ㅣ ㄹ ㅇ ㅜ ㅓ ㄹ ㅇ ㅣ ㅅ ㅣ ㅂ ㅇ ㅗ ㅇ ㅣ ㄹ"
+            android:background="@drawable/text_border"/>
+
+        <TextView android:id="@+id/tv_small_day_of_week"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:keepScreenOn="true"
+            android:textColor="#9fff"
+            android:textSize="13dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_above="@+id/tv_small_date"
+            android:layout_marginBottom="22dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="ㄱ ㅡ ㅁ ㅇ ㅛ ㅇ ㅣ ㄹ"
+            android:background="@drawable/text_border"/>
+
+        <TextView android:id="@+id/tv_small_ampm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:keepScreenOn="true"
+            android:textColor="#9fff"
+            android:textSize="13dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_above="@+id/tv_small_day_of_week"
+            android:layout_marginBottom="2dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="ㅇ ㅗ ㅈ ㅓ ㄴ"
+            android:background="@drawable/text_border"/>
+    </RelativeLayout>
+</FrameLayout>
