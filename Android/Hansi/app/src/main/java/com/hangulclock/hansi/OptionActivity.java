@@ -38,6 +38,13 @@ public class OptionActivity extends Activity {
 
         // TODO: color selector not yet implemented
         final Button colorButton = (Button) findViewById(R.id.btn_color_changer);
+        colorButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(OptionActivity.this, ColorActivity.class);
+                startActivity(i);
+            }
+        });
 
         adendaButton.setAdendaCallback(mAdendaCallback);
 
