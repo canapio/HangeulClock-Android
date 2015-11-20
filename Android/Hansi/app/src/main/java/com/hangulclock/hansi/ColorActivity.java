@@ -21,8 +21,6 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-
 public class ColorActivity extends Activity implements
         GestureDetector.OnGestureListener {
 
@@ -36,6 +34,9 @@ public class ColorActivity extends Activity implements
     boolean isBorderOn = false;
 
     private GestureDetectorCompat mDetector;
+
+    private MultiprocessPreferences.MultiprocessSharedPreferences mSharedPreferences;
+    private MultiprocessPreferences.Editor mEditor;
 
     TextView tvTop;
 
@@ -89,6 +90,9 @@ public class ColorActivity extends Activity implements
         activityV = (FrameLayout) findViewById(R.id.colorlayout_v);
         activityV.getForeground().setAlpha(0);
 
+        mSharedPreferences = MultiprocessPreferences.getDefaultSharedPreferences(this);
+        mEditor = mSharedPreferences.edit();
+
         // Listener for dialog option menu
         mDialogListener = new DialogListener() {
             @Override
@@ -107,10 +111,10 @@ public class ColorActivity extends Activity implements
         tvTop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ColorPickerDialog(mContext, 0, new ColorPickerDialog.OnColorSelectedListener() {
+                new ColorPickerDialog(mContext, mSharedPreferences.getInt("tvTop",0), new ColorPickerDialog.OnColorSelectedListener() {
                     @Override
                     public void onColorSelected(int color) {
-                        setTVColor(tvTop, color);
+                        setTVColor("tvTop", tvTop, color);
                         Log.d(TAG, "selected color: " + color);
                     }
                 }).show();
@@ -122,10 +126,10 @@ public class ColorActivity extends Activity implements
         tvBigTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ColorPickerDialog(mContext, 0, new ColorPickerDialog.OnColorSelectedListener() {
+                new ColorPickerDialog(mContext, mSharedPreferences.getInt("tvBigTime",0), new ColorPickerDialog.OnColorSelectedListener() {
                     @Override
                     public void onColorSelected(int color) {
-                        setTVColor(tvBigTime, color);
+                        setTVColor("tvBigTime", tvBigTime, color);
                         Log.d(TAG, "selected color: " + color);
                     }
                 }).show();
@@ -136,10 +140,10 @@ public class ColorActivity extends Activity implements
         tvBigHour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ColorPickerDialog(mContext, 0, new ColorPickerDialog.OnColorSelectedListener() {
+                new ColorPickerDialog(mContext, mSharedPreferences.getInt("tvBigHour",0), new ColorPickerDialog.OnColorSelectedListener() {
                     @Override
                     public void onColorSelected(int color) {
-                        setTVColor(tvBigHour, color);
+                        setTVColor("tvBigHour", tvBigHour, color);
                         Log.d(TAG, "selected color: " + color);
                     }
                 }).show();
@@ -151,10 +155,10 @@ public class ColorActivity extends Activity implements
         tvAMPMUnit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ColorPickerDialog(mContext, 0, new ColorPickerDialog.OnColorSelectedListener() {
+                new ColorPickerDialog(mContext, mSharedPreferences.getInt("tvAMPMUnit",0), new ColorPickerDialog.OnColorSelectedListener() {
                     @Override
                     public void onColorSelected(int color) {
-                        setTVColor(tvAMPMUnit, color);
+                        setTVColor("tvAMPMUnit", tvAMPMUnit, color);
                         Log.d(TAG, "selected color: " + color);
                     }
                 }).show();
@@ -164,10 +168,10 @@ public class ColorActivity extends Activity implements
         tvAMPM.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ColorPickerDialog(mContext, 0, new ColorPickerDialog.OnColorSelectedListener() {
+                new ColorPickerDialog(mContext, mSharedPreferences.getInt("tvAMPM",0), new ColorPickerDialog.OnColorSelectedListener() {
                     @Override
                     public void onColorSelected(int color) {
-                        setTVColor(tvAMPM, color);
+                        setTVColor("tvAMPM", tvAMPM, color);
                         Log.d(TAG, "selected color: " + color);
                     }
                 }).show();
@@ -179,10 +183,10 @@ public class ColorActivity extends Activity implements
         tvBigMinUnit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ColorPickerDialog(mContext, 0, new ColorPickerDialog.OnColorSelectedListener() {
+                new ColorPickerDialog(mContext, mSharedPreferences.getInt("tvBigMinUnit",0), new ColorPickerDialog.OnColorSelectedListener() {
                     @Override
                     public void onColorSelected(int color) {
-                        setTVColor(tvBigMinUnit, color);
+                        setTVColor("tvBigMinUnit", tvBigMinUnit, color);
                         Log.d(TAG, "selected color: " + color);
                     }
                 }).show();
@@ -192,10 +196,10 @@ public class ColorActivity extends Activity implements
         tvBigMin1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ColorPickerDialog(mContext, 0, new ColorPickerDialog.OnColorSelectedListener() {
+                new ColorPickerDialog(mContext, mSharedPreferences.getInt("tvBigMin1",0), new ColorPickerDialog.OnColorSelectedListener() {
                     @Override
                     public void onColorSelected(int color) {
-                        setTVColor(tvBigMin1, color);
+                        setTVColor("tvBigMin1", tvBigMin1, color);
                         Log.d(TAG, "selected color: " + color);
                     }
                 }).show();
@@ -205,10 +209,10 @@ public class ColorActivity extends Activity implements
         tvBigMin2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ColorPickerDialog(mContext, 0, new ColorPickerDialog.OnColorSelectedListener() {
+                new ColorPickerDialog(mContext, mSharedPreferences.getInt("tvBigMin2",0), new ColorPickerDialog.OnColorSelectedListener() {
                     @Override
                     public void onColorSelected(int color) {
-                        setTVColor(tvBigMin2, color);
+                        setTVColor("tvBigMin2", tvBigMin2, color);
                         Log.d(TAG, "selected color: " + color);
                     }
                 }).show();
@@ -218,10 +222,10 @@ public class ColorActivity extends Activity implements
         tvBigMin3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ColorPickerDialog(mContext, 0, new ColorPickerDialog.OnColorSelectedListener() {
+                new ColorPickerDialog(mContext, mSharedPreferences.getInt("tvBigMin3",0), new ColorPickerDialog.OnColorSelectedListener() {
                     @Override
                     public void onColorSelected(int color) {
-                        setTVColor(tvBigMin3, color);
+                        setTVColor("tvBigMin3", tvBigMin3, color);
                         Log.d(TAG, "selected color: " + color);
                     }
                 }).show();
@@ -233,10 +237,10 @@ public class ColorActivity extends Activity implements
         tvBigSecUnit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ColorPickerDialog(mContext, 0, new ColorPickerDialog.OnColorSelectedListener() {
+                new ColorPickerDialog(mContext, mSharedPreferences.getInt("tvBigSecUnit",0), new ColorPickerDialog.OnColorSelectedListener() {
                     @Override
                     public void onColorSelected(int color) {
-                        setTVColor(tvBigSecUnit, color);
+                        setTVColor("tvBigSecUnit", tvBigSecUnit, color);
                         Log.d(TAG, "selected color: " + color);
                     }
                 }).show();
@@ -246,10 +250,10 @@ public class ColorActivity extends Activity implements
         tvBigSec1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ColorPickerDialog(mContext, 0, new ColorPickerDialog.OnColorSelectedListener() {
+                new ColorPickerDialog(mContext, mSharedPreferences.getInt("tvBigSec1",0), new ColorPickerDialog.OnColorSelectedListener() {
                     @Override
                     public void onColorSelected(int color) {
-                        setTVColor(tvBigSec1, color);
+                        setTVColor("tvBigSec1", tvBigSec1, color);
                         Log.d(TAG, "selected color: " + color);
                     }
                 }).show();
@@ -259,10 +263,10 @@ public class ColorActivity extends Activity implements
         tvBigSec2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ColorPickerDialog(mContext, 0, new ColorPickerDialog.OnColorSelectedListener() {
+                new ColorPickerDialog(mContext, mSharedPreferences.getInt("tvBigSec2",0), new ColorPickerDialog.OnColorSelectedListener() {
                     @Override
                     public void onColorSelected(int color) {
-                        setTVColor(tvBigSec2, color);
+                        setTVColor("tvBigSec2", tvBigSec2, color);
                         Log.d(TAG, "selected color: " + color);
                     }
                 }).show();
@@ -272,10 +276,10 @@ public class ColorActivity extends Activity implements
         tvBigSec3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ColorPickerDialog(mContext, 0, new ColorPickerDialog.OnColorSelectedListener() {
+                new ColorPickerDialog(mContext, mSharedPreferences.getInt("tvBigSec3",0), new ColorPickerDialog.OnColorSelectedListener() {
                     @Override
                     public void onColorSelected(int color) {
-                        setTVColor(tvBigSec3, color);
+                        setTVColor("tvBigSec3", tvBigSec3, color);
                         Log.d(TAG, "selected color: " + color);
                     }
                 }).show();
@@ -287,10 +291,10 @@ public class ColorActivity extends Activity implements
         tvSmallYr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ColorPickerDialog(mContext, 0, new ColorPickerDialog.OnColorSelectedListener() {
+                new ColorPickerDialog(mContext, mSharedPreferences.getInt("tvSmallYr",0), new ColorPickerDialog.OnColorSelectedListener() {
                     @Override
                     public void onColorSelected(int color) {
-                        setTVColor(tvSmallYr, color);
+                        setTVColor("tvSmallYr", tvSmallYr, color);
                         Log.d(TAG, "selected color: " + color);
                     }
                 }).show();
@@ -300,10 +304,10 @@ public class ColorActivity extends Activity implements
         tvSmallDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ColorPickerDialog(mContext, 0, new ColorPickerDialog.OnColorSelectedListener() {
+                new ColorPickerDialog(mContext, mSharedPreferences.getInt("tvSmallDate",0), new ColorPickerDialog.OnColorSelectedListener() {
                     @Override
                     public void onColorSelected(int color) {
-                        setTVColor(tvSmallDate, color);
+                        setTVColor("tvSmallDate", tvSmallDate, color);
                         Log.d(TAG, "selected color: " + color);
                     }
                 }).show();
@@ -313,10 +317,10 @@ public class ColorActivity extends Activity implements
         tvSmallDayOfWeek.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ColorPickerDialog(mContext, 0, new ColorPickerDialog.OnColorSelectedListener() {
+                new ColorPickerDialog(mContext, mSharedPreferences.getInt("tvSmallDayOfWeek",0), new ColorPickerDialog.OnColorSelectedListener() {
                     @Override
                     public void onColorSelected(int color) {
-                        setTVColor(tvSmallDayOfWeek, color);
+                        setTVColor("tvSmallDayOfWeek", tvSmallDayOfWeek, color);
                         Log.d(TAG, "selected color: " + color);
                     }
                 }).show();
@@ -326,10 +330,10 @@ public class ColorActivity extends Activity implements
         tvSmallAMPM.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ColorPickerDialog(mContext, 0, new ColorPickerDialog.OnColorSelectedListener() {
+                new ColorPickerDialog(mContext, mSharedPreferences.getInt("tvSmallAMPM",0), new ColorPickerDialog.OnColorSelectedListener() {
                     @Override
                     public void onColorSelected(int color) {
-                        setTVColor(tvSmallAMPM, color);
+                        setTVColor("tvSmallAMPM", tvSmallAMPM, color);
                         Log.d(TAG, "selected color: " + color);
                     }
                 }).show();
@@ -508,8 +512,10 @@ public class ColorActivity extends Activity implements
         }
     }
 
-    private void setTVColor(TextView tv, int color) {
+    private void setTVColor(String name, TextView tv, int color) {
         tv.setTextColor(color);
+        mEditor.putInt("c_" +name,color);
+        mEditor.apply();
     }
 
     private void setFontStyles() {
