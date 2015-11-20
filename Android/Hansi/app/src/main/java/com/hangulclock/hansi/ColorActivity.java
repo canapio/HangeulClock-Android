@@ -26,6 +26,8 @@ public class ColorActivity extends Activity implements
 
     private static final String TAG = ClockActivity.class.getSimpleName();
 
+    private static final int COLOR_WHITE = 16777215;
+
     Context mContext;
 
     boolean mBlurred = false;
@@ -111,7 +113,7 @@ public class ColorActivity extends Activity implements
         tvTop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ColorPickerDialog(mContext, mSharedPreferences.getInt("tvTop",0), new ColorPickerDialog.OnColorSelectedListener() {
+                new ColorPickerDialog(mContext, mSharedPreferences.getInt("c_tvTop", COLOR_WHITE), new ColorPickerDialog.OnColorSelectedListener() {
                     @Override
                     public void onColorSelected(int color) {
                         setTVColor("tvTop", tvTop, color);
@@ -126,7 +128,7 @@ public class ColorActivity extends Activity implements
         tvBigTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ColorPickerDialog(mContext, mSharedPreferences.getInt("tvBigTime",0), new ColorPickerDialog.OnColorSelectedListener() {
+                new ColorPickerDialog(mContext, mSharedPreferences.getInt("c_tvBigTime", COLOR_WHITE), new ColorPickerDialog.OnColorSelectedListener() {
                     @Override
                     public void onColorSelected(int color) {
                         setTVColor("tvBigTime", tvBigTime, color);
@@ -140,7 +142,7 @@ public class ColorActivity extends Activity implements
         tvBigHour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ColorPickerDialog(mContext, mSharedPreferences.getInt("tvBigHour",0), new ColorPickerDialog.OnColorSelectedListener() {
+                new ColorPickerDialog(mContext, mSharedPreferences.getInt("c_tvBigHour", COLOR_WHITE), new ColorPickerDialog.OnColorSelectedListener() {
                     @Override
                     public void onColorSelected(int color) {
                         setTVColor("tvBigHour", tvBigHour, color);
@@ -155,7 +157,7 @@ public class ColorActivity extends Activity implements
         tvAMPMUnit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ColorPickerDialog(mContext, mSharedPreferences.getInt("tvAMPMUnit",0), new ColorPickerDialog.OnColorSelectedListener() {
+                new ColorPickerDialog(mContext, mSharedPreferences.getInt("c_tvAMPMUnit", COLOR_WHITE), new ColorPickerDialog.OnColorSelectedListener() {
                     @Override
                     public void onColorSelected(int color) {
                         setTVColor("tvAMPMUnit", tvAMPMUnit, color);
@@ -168,7 +170,7 @@ public class ColorActivity extends Activity implements
         tvAMPM.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ColorPickerDialog(mContext, mSharedPreferences.getInt("tvAMPM",0), new ColorPickerDialog.OnColorSelectedListener() {
+                new ColorPickerDialog(mContext, mSharedPreferences.getInt("c_tvAMPM", COLOR_WHITE), new ColorPickerDialog.OnColorSelectedListener() {
                     @Override
                     public void onColorSelected(int color) {
                         setTVColor("tvAMPM", tvAMPM, color);
@@ -183,7 +185,7 @@ public class ColorActivity extends Activity implements
         tvBigMinUnit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ColorPickerDialog(mContext, mSharedPreferences.getInt("tvBigMinUnit",0), new ColorPickerDialog.OnColorSelectedListener() {
+                new ColorPickerDialog(mContext, mSharedPreferences.getInt("c_tvBigMinUnit", COLOR_WHITE), new ColorPickerDialog.OnColorSelectedListener() {
                     @Override
                     public void onColorSelected(int color) {
                         setTVColor("tvBigMinUnit", tvBigMinUnit, color);
@@ -196,7 +198,7 @@ public class ColorActivity extends Activity implements
         tvBigMin1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ColorPickerDialog(mContext, mSharedPreferences.getInt("tvBigMin1",0), new ColorPickerDialog.OnColorSelectedListener() {
+                new ColorPickerDialog(mContext, mSharedPreferences.getInt("c_tvBigMin1", COLOR_WHITE), new ColorPickerDialog.OnColorSelectedListener() {
                     @Override
                     public void onColorSelected(int color) {
                         setTVColor("tvBigMin1", tvBigMin1, color);
@@ -209,7 +211,7 @@ public class ColorActivity extends Activity implements
         tvBigMin2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ColorPickerDialog(mContext, mSharedPreferences.getInt("tvBigMin2",0), new ColorPickerDialog.OnColorSelectedListener() {
+                new ColorPickerDialog(mContext, mSharedPreferences.getInt("c_tvBigMin2", COLOR_WHITE), new ColorPickerDialog.OnColorSelectedListener() {
                     @Override
                     public void onColorSelected(int color) {
                         setTVColor("tvBigMin2", tvBigMin2, color);
@@ -222,7 +224,7 @@ public class ColorActivity extends Activity implements
         tvBigMin3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ColorPickerDialog(mContext, mSharedPreferences.getInt("tvBigMin3",0), new ColorPickerDialog.OnColorSelectedListener() {
+                new ColorPickerDialog(mContext, mSharedPreferences.getInt("c_tvBigMin3", COLOR_WHITE), new ColorPickerDialog.OnColorSelectedListener() {
                     @Override
                     public void onColorSelected(int color) {
                         setTVColor("tvBigMin3", tvBigMin3, color);
@@ -237,7 +239,7 @@ public class ColorActivity extends Activity implements
         tvBigSecUnit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ColorPickerDialog(mContext, mSharedPreferences.getInt("tvBigSecUnit",0), new ColorPickerDialog.OnColorSelectedListener() {
+                new ColorPickerDialog(mContext, mSharedPreferences.getInt("c_tvBigSecUnit", COLOR_WHITE), new ColorPickerDialog.OnColorSelectedListener() {
                     @Override
                     public void onColorSelected(int color) {
                         setTVColor("tvBigSecUnit", tvBigSecUnit, color);
@@ -250,7 +252,7 @@ public class ColorActivity extends Activity implements
         tvBigSec1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ColorPickerDialog(mContext, mSharedPreferences.getInt("tvBigSec1",0), new ColorPickerDialog.OnColorSelectedListener() {
+                new ColorPickerDialog(mContext, mSharedPreferences.getInt("c_tvBigSec1", COLOR_WHITE), new ColorPickerDialog.OnColorSelectedListener() {
                     @Override
                     public void onColorSelected(int color) {
                         setTVColor("tvBigSec1", tvBigSec1, color);
@@ -263,7 +265,7 @@ public class ColorActivity extends Activity implements
         tvBigSec2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ColorPickerDialog(mContext, mSharedPreferences.getInt("tvBigSec2",0), new ColorPickerDialog.OnColorSelectedListener() {
+                new ColorPickerDialog(mContext, mSharedPreferences.getInt("c_tvBigSec2", COLOR_WHITE), new ColorPickerDialog.OnColorSelectedListener() {
                     @Override
                     public void onColorSelected(int color) {
                         setTVColor("tvBigSec2", tvBigSec2, color);
@@ -276,7 +278,7 @@ public class ColorActivity extends Activity implements
         tvBigSec3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ColorPickerDialog(mContext, mSharedPreferences.getInt("tvBigSec3",0), new ColorPickerDialog.OnColorSelectedListener() {
+                new ColorPickerDialog(mContext, mSharedPreferences.getInt("c_tvBigSec3", COLOR_WHITE), new ColorPickerDialog.OnColorSelectedListener() {
                     @Override
                     public void onColorSelected(int color) {
                         setTVColor("tvBigSec3", tvBigSec3, color);
@@ -291,7 +293,7 @@ public class ColorActivity extends Activity implements
         tvSmallYr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ColorPickerDialog(mContext, mSharedPreferences.getInt("tvSmallYr",0), new ColorPickerDialog.OnColorSelectedListener() {
+                new ColorPickerDialog(mContext, mSharedPreferences.getInt("c_tvSmallYr", COLOR_WHITE), new ColorPickerDialog.OnColorSelectedListener() {
                     @Override
                     public void onColorSelected(int color) {
                         setTVColor("tvSmallYr", tvSmallYr, color);
@@ -304,7 +306,7 @@ public class ColorActivity extends Activity implements
         tvSmallDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ColorPickerDialog(mContext, mSharedPreferences.getInt("tvSmallDate",0), new ColorPickerDialog.OnColorSelectedListener() {
+                new ColorPickerDialog(mContext, mSharedPreferences.getInt("c_tvSmallDate", COLOR_WHITE), new ColorPickerDialog.OnColorSelectedListener() {
                     @Override
                     public void onColorSelected(int color) {
                         setTVColor("tvSmallDate", tvSmallDate, color);
@@ -317,7 +319,7 @@ public class ColorActivity extends Activity implements
         tvSmallDayOfWeek.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ColorPickerDialog(mContext, mSharedPreferences.getInt("tvSmallDayOfWeek",0), new ColorPickerDialog.OnColorSelectedListener() {
+                new ColorPickerDialog(mContext, mSharedPreferences.getInt("c_tvSmallDayOfWeek", COLOR_WHITE), new ColorPickerDialog.OnColorSelectedListener() {
                     @Override
                     public void onColorSelected(int color) {
                         setTVColor("tvSmallDayOfWeek", tvSmallDayOfWeek, color);
@@ -330,7 +332,7 @@ public class ColorActivity extends Activity implements
         tvSmallAMPM.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ColorPickerDialog(mContext, mSharedPreferences.getInt("tvSmallAMPM",0), new ColorPickerDialog.OnColorSelectedListener() {
+                new ColorPickerDialog(mContext, mSharedPreferences.getInt("c_tvSmallAMPM", COLOR_WHITE), new ColorPickerDialog.OnColorSelectedListener() {
                     @Override
                     public void onColorSelected(int color) {
                         setTVColor("tvSmallAMPM", tvSmallAMPM, color);
@@ -339,7 +341,9 @@ public class ColorActivity extends Activity implements
                 }).show();
             }
         });
+
         setFontStyles();
+        updateColor();
     }
 
     @Override
@@ -377,11 +381,14 @@ public class ColorActivity extends Activity implements
                         }
 
                         else if (position == 2) {
-                            new ColorPickerDialog(mContext, 0, new ColorPickerDialog.OnColorSelectedListener() {
+                            new ColorPickerDialog(mContext, mSharedPreferences.getInt("c_bg", COLOR_WHITE), new ColorPickerDialog.OnColorSelectedListener() {
                                 @Override
                                 public void onColorSelected(int color) {
                                     activityV.setBackground(null);
                                     activityV.setBackgroundColor(color);
+                                    mEditor.putBoolean("c_bg_changed", true);
+                                    mEditor.putInt("c_bg", color);
+                                    mEditor.apply();
                                     Log.d(TAG, "selected color: " + color);
                                 }
                             }).show();
@@ -514,7 +521,7 @@ public class ColorActivity extends Activity implements
 
     private void setTVColor(String name, TextView tv, int color) {
         tv.setTextColor(color);
-        mEditor.putInt("c_" +name,color);
+        mEditor.putInt("c_" + name,color);
         mEditor.apply();
     }
 
@@ -549,4 +556,29 @@ public class ColorActivity extends Activity implements
         tvSmallAMPM.setTypeface(typeface_regular);
     }
 
+    private void updateColor() {
+        tvTop.setTextColor(mSharedPreferences.getInt("c_tvTop", COLOR_WHITE));
+        tvBigTime.setTextColor(mSharedPreferences.getInt("c_tvBigTime", COLOR_WHITE));
+        tvBigHour.setTextColor(mSharedPreferences.getInt("c_tvBigHour", COLOR_WHITE));
+        tvAMPMUnit.setTextColor(mSharedPreferences.getInt("c_tvAMPMUnit", COLOR_WHITE));
+        tvAMPM.setTextColor(mSharedPreferences.getInt("c_tvAMPM", COLOR_WHITE));
+        tvBigMinUnit.setTextColor(mSharedPreferences.getInt("c_tvBigMinUnit", COLOR_WHITE));
+        tvBigMin1.setTextColor(mSharedPreferences.getInt("c_tvBigMin1", COLOR_WHITE));
+        tvBigMin2.setTextColor(mSharedPreferences.getInt("c_tvBigMin2", COLOR_WHITE));
+        tvBigMin3.setTextColor(mSharedPreferences.getInt("c_tvBigMin3", COLOR_WHITE));
+        tvBigSecUnit.setTextColor(mSharedPreferences.getInt("c_tvBigSecUnit", COLOR_WHITE));
+        tvBigSec1.setTextColor(mSharedPreferences.getInt("c_tvBigSec1", COLOR_WHITE));
+        tvBigSec2.setTextColor(mSharedPreferences.getInt("c_tvBigSec2", COLOR_WHITE));
+        tvBigSec3.setTextColor(mSharedPreferences.getInt("c_tvBigSec3", COLOR_WHITE));
+        tvSmallYr.setTextColor(mSharedPreferences.getInt("c_tvSmallYr", COLOR_WHITE));
+        tvSmallDate.setTextColor(mSharedPreferences.getInt("c_tvSmallDate", COLOR_WHITE));
+        tvSmallDayOfWeek.setTextColor(mSharedPreferences.getInt("c_tvSmallDayOfWeek", COLOR_WHITE));
+        tvSmallAMPM.setTextColor(mSharedPreferences.getInt("c_tvSmallAMPM", COLOR_WHITE));
+
+        boolean isBGChanged = mSharedPreferences.getBoolean("c_bg_changed", false);
+        if (isBGChanged) {
+            activityV.setBackground(null);
+            activityV.setBackgroundColor(mSharedPreferences.getInt("c_bg", COLOR_WHITE));
+        }
+    }
 }
