@@ -32,6 +32,7 @@ import sdk.adenda.lockscreen.fragments.AdendaFragmentInterface;
 public class LockscreenFragment extends Fragment implements AdendaFragmentInterface {
     private static final String TAG = LockscreenFragment.class.getSimpleName();
     private final static String PREF_FONT = "FONTPREF";
+    private static final int COLOR_WHITE = -1;
 
     KoreanTranslator kt;
 
@@ -159,6 +160,7 @@ public class LockscreenFragment extends Fragment implements AdendaFragmentInterf
         tvSmallAMPM = (TextView) view.findViewById(R.id.frag_tv_small_ampm);
 
         setFontStyles(view.getContext());
+        updateColor(view.getContext());
 
         kt = new KoreanTranslator();
 
@@ -339,6 +341,7 @@ public class LockscreenFragment extends Fragment implements AdendaFragmentInterf
             if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
                 mScreenOn = false;
                 setFontStyles(context);
+                updateColor(context);
             }
             else if (intent.getAction().equals(Intent.ACTION_SCREEN_ON)) {
                 mScreenOn = true;
@@ -436,7 +439,6 @@ public class LockscreenFragment extends Fragment implements AdendaFragmentInterf
             tvSmallDate.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 13);
             tvSmallDayOfWeek.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 13);
             tvSmallAMPM.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 13);
-
         } else {
             tvTop.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
             tvBigTime.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 120);
@@ -455,6 +457,35 @@ public class LockscreenFragment extends Fragment implements AdendaFragmentInterf
             tvSmallDate.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 13);
             tvSmallDayOfWeek.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 13);
             tvSmallAMPM.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 13);
+        }
+    }
+
+    private void updateColor(Context con) {
+        MultiprocessPreferences.MultiprocessSharedPreferences mSharedPreferences
+                = MultiprocessPreferences.getDefaultSharedPreferences(con);
+
+        tvTop.setTextColor(mSharedPreferences.getInt("c_tvTop", COLOR_WHITE));
+        tvBigTime.setTextColor(mSharedPreferences.getInt("c_tvBigTime", COLOR_WHITE));
+        tvBigHour.setTextColor(mSharedPreferences.getInt("c_tvBigHour", COLOR_WHITE));
+        tvAMPMUnit.setTextColor(mSharedPreferences.getInt("c_tvAMPMUnit", COLOR_WHITE));
+        tvAMPM.setTextColor(mSharedPreferences.getInt("c_tvAMPM", COLOR_WHITE));
+        tvBigMinUnit.setTextColor(mSharedPreferences.getInt("c_tvBigMinUnit", COLOR_WHITE));
+        tvBigMin1.setTextColor(mSharedPreferences.getInt("c_tvBigMin1", COLOR_WHITE));
+        tvBigMin2.setTextColor(mSharedPreferences.getInt("c_tvBigMin2", COLOR_WHITE));
+        tvBigMin3.setTextColor(mSharedPreferences.getInt("c_tvBigMin3", COLOR_WHITE));
+        tvBigSecUnit.setTextColor(mSharedPreferences.getInt("c_tvBigSecUnit", COLOR_WHITE));
+        tvBigSec1.setTextColor(mSharedPreferences.getInt("c_tvBigSec1", COLOR_WHITE));
+        tvBigSec2.setTextColor(mSharedPreferences.getInt("c_tvBigSec2", COLOR_WHITE));
+        tvBigSec3.setTextColor(mSharedPreferences.getInt("c_tvBigSec3", COLOR_WHITE));
+        tvSmallYr.setTextColor(mSharedPreferences.getInt("c_tvSmallYr", COLOR_WHITE));
+        tvSmallDate.setTextColor(mSharedPreferences.getInt("c_tvSmallDate", COLOR_WHITE));
+        tvSmallDayOfWeek.setTextColor(mSharedPreferences.getInt("c_tvSmallDayOfWeek", COLOR_WHITE));
+        tvSmallAMPM.setTextColor(mSharedPreferences.getInt("c_tvSmallAMPM", COLOR_WHITE));
+
+        boolean isBGChanged = mSharedPreferences.getBoolean("c_bg_changed", false);
+        if (isBGChanged) {
+            activityV.setBackground(null);
+            activityV.setBackgroundColor(mSharedPreferences.getInt("c_bg", COLOR_WHITE));
         }
     }
 }

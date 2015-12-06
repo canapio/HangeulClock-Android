@@ -43,6 +43,8 @@ public class ClockActivity extends Activity implements
     private static final String APP_URL_DEFAULT = "http://play.google.com/store/apps/details?id=com.hangulclock.hansi";
     private static final String APP_URL_KOR = "http://play.google.com/store/apps/details?id=com.hangulclock.hansi&hl=ko";
 
+    private static final int COLOR_WHITE = -1;
+
     KoreanTranslator kt;
 
     String[] currTimeStr;
@@ -208,6 +210,7 @@ public class ClockActivity extends Activity implements
 
         FontChanger.setFont(this, MultiprocessPreferences.getDefaultSharedPreferences(getApplicationContext()).getString("font", "nanumgothic"));
         setFontStyles();
+        updateColor();
 
         kt = new KoreanTranslator();
 
@@ -321,6 +324,7 @@ public class ClockActivity extends Activity implements
     protected void onResume() {
         super.onResume();
         setFontStyles();
+        updateColor();
     }
 
     public static int getScreenOrientation(Activity activity) {
@@ -585,6 +589,40 @@ public class ClockActivity extends Activity implements
             tvSmallDate.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 13);
             tvSmallDayOfWeek.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 13);
             tvSmallAMPM.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 13);
+        }
+    }
+
+    private void updateColor() {
+        MultiprocessPreferences.MultiprocessSharedPreferences mSharedPreferences
+                = MultiprocessPreferences.getDefaultSharedPreferences(getApplicationContext());
+
+        tvTop.setTextColor(mSharedPreferences.getInt("c_tvTop", COLOR_WHITE));
+        tvBigTime.setTextColor(mSharedPreferences.getInt("c_tvBigTime", COLOR_WHITE));
+        tvBigHour.setTextColor(mSharedPreferences.getInt("c_tvBigHour", COLOR_WHITE));
+        tvAMPMUnit.setTextColor(mSharedPreferences.getInt("c_tvAMPMUnit", COLOR_WHITE));
+        tvAMPM.setTextColor(mSharedPreferences.getInt("c_tvAMPM", COLOR_WHITE));
+        tvBigMinUnit.setTextColor(mSharedPreferences.getInt("c_tvBigMinUnit", COLOR_WHITE));
+        tvBigMin1.setTextColor(mSharedPreferences.getInt("c_tvBigMin1", COLOR_WHITE));
+        tvBigMin2.setTextColor(mSharedPreferences.getInt("c_tvBigMin2", COLOR_WHITE));
+        tvBigMin3.setTextColor(mSharedPreferences.getInt("c_tvBigMin3", COLOR_WHITE));
+        tvBigSecUnit.setTextColor(mSharedPreferences.getInt("c_tvBigSecUnit", COLOR_WHITE));
+        tvBigSec1.setTextColor(mSharedPreferences.getInt("c_tvBigSec1", COLOR_WHITE));
+        tvBigSec2.setTextColor(mSharedPreferences.getInt("c_tvBigSec2", COLOR_WHITE));
+        tvBigSec3.setTextColor(mSharedPreferences.getInt("c_tvBigSec3", COLOR_WHITE));
+        tvSmallYr.setTextColor(mSharedPreferences.getInt("c_tvSmallYr", COLOR_WHITE));
+        tvSmallDate.setTextColor(mSharedPreferences.getInt("c_tvSmallDate", COLOR_WHITE));
+        tvSmallDayOfWeek.setTextColor(mSharedPreferences.getInt("c_tvSmallDayOfWeek", COLOR_WHITE));
+        tvSmallAMPM.setTextColor(mSharedPreferences.getInt("c_tvSmallAMPM", COLOR_WHITE));
+
+        boolean isBGChanged = mSharedPreferences.getBoolean("c_bg_changed", false);
+        if (isBGChanged) {
+            if (currOrientation == 0) {
+                activityV.setBackground(null);
+                activityV.setBackgroundColor(mSharedPreferences.getInt("c_bg", COLOR_WHITE));
+            } else {
+                activityH.setBackground(null);
+                activityH.setBackgroundColor(mSharedPreferences.getInt("c_bg", COLOR_WHITE));
+            }
         }
     }
 }

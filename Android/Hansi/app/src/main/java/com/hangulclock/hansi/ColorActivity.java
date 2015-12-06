@@ -26,7 +26,7 @@ public class ColorActivity extends Activity implements
 
     private static final String TAG = ClockActivity.class.getSimpleName();
 
-    private static final int COLOR_WHITE = 16777215;
+    private static final int COLOR_WHITE = -1;
 
     Context mContext;
 
