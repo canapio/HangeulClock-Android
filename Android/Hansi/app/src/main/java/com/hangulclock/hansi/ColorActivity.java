@@ -13,11 +13,16 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GestureDetectorCompat;
 import android.util.Log;
 import android.view.GestureDetector;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +44,8 @@ public class ColorActivity extends Activity implements
 
     private MultiprocessPreferences.MultiprocessSharedPreferences mSharedPreferences;
     private MultiprocessPreferences.Editor mEditor;
+
+    PopupWindow tutorialPopup;
 
     TextView tvTop;
 
@@ -373,7 +380,7 @@ public class ColorActivity extends Activity implements
                     @Override
                     public void onClick(DialogInterface dlg, int position) {
                         if (position == 0) {
-
+                            openTutorialPopup();
                         }
 
                         else if (position == 1) {
@@ -581,4 +588,28 @@ public class ColorActivity extends Activity implements
             activityV.setBackgroundColor(mSharedPreferences.getInt("c_bg", COLOR_WHITE));
         }
     }
+
+    private void openTutorialPopup() {
+        try {
+            LayoutInflater inflater = (LayoutInflater) ColorActivity.this
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View layout = inflater.inflate(R.layout.color_tutorial,
+                    (ViewGroup) findViewById(R.id.tutorial_popup));
+
+            tutorialPopup = new PopupWindow(layout, layout.getLayoutParams().WRAP_CONTENT, layout.getLayoutParams().WRAP_CONTENT, true);
+            tutorialPopup.showAtLocation(layout, Gravity.CENTER, 0, 0);
+
+            final Button popupConfirmButton = (Button) layout.findViewById(R.id.btn_close_tutorial_popup);
+            popupConfirmButton.setOnClickListener(confirmButtonOnClickListener);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private View.OnClickListener confirmButtonOnClickListener = new View.OnClickListener() {
+        public void onClick(View v) {
+            tutorialPopup.dismiss();
+        }
+    };
 }

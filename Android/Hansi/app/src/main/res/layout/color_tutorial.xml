@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:id="@+id/tutorial_popup"
+    android:background="@drawable/tutorial_border">
+
+    <ScrollView
+        android:id="@+id/tutorial_scrollview"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tutorial_first_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="1. 글자선택"
+                android:layout_marginTop="20dp"
+                android:textSize="13sp"
+                android:gravity="center_horizontal"/>
+
+            <ImageView
+                android:id="@+id/tutorial_first_image"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/tutorial_first_label"
+                android:src="@drawable/color_tutorial_1"
+                android:layout_centerHorizontal="true"/>
+
+            <TextView
+                android:id="@+id/tutorial_second_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tutorial_first_image"
+                android:layout_marginTop="20dp"
+                android:text="2. 색상선택"
+                android:textSize="13sp"
+                android:gravity="center_horizontal"/>
+
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/tutorial_second_label"
+                android:src="@drawable/color_tutorial_2"
+                android:layout_centerHorizontal="true"/>
+
+        </RelativeLayout>
+    </ScrollView>
+    <Button
+        android:id="@+id/btn_close_tutorial_popup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tutorial_scrollview"
+        android:layout_margin="20dp"
+        android:text="확인"
+        android:layout_gravity="bottom"/>
+</RelativeLayout>
